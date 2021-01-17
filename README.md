@@ -1,6 +1,6 @@
 # Ripple API
 
-Ripple API provides
+Ripple API provides a HTTP-based API for the [`rippled` server](https://github.com/ripple/rippled).
 
 https://xrpl.org/rippled-api.html
 

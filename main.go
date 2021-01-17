@@ -11,12 +11,13 @@ import (
 
 	"github.com/buaazp/fasthttprouter"
 	"github.com/gorilla/mux"
-	"github.com/grokify/ripple-api/network"
 	"github.com/grokify/simplego/fmt/fmtutil"
 	"github.com/grokify/simplego/net/anyhttp"
 	"github.com/grokify/simplego/net/http/httpsimple"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
+
+	ripplenetwork "github.com/wecoinshq/ripple-network"
 )
 
 type JsonRpcRequest struct {
@@ -25,38 +26,38 @@ type JsonRpcRequest struct {
 }
 
 type RippleApiService struct {
-	Port   int
-	Engine string
+	Port              int
+	Engine            string
+	DefaultJsonRpcUrl string
 }
 
 func (svc *RippleApiService) HandleTestNetHTTP(res http.ResponseWriter, req *http.Request) {
-	log.Info("FUNC_HandleNetHTTP__BEGIN")
+	log.Info().Msg("FUNC_HandleNetHTTP__BEGIN")
 	fmt.Fprintf(res, `{"foo":"%q"}`, html.EscapeString(req.URL.Path))
 }
 
 func (svc *RippleApiService) HandleApiNetHTTP(res http.ResponseWriter, req *http.Request) {
-	log.Info("FUNC_HandleNetHTTP__BEGIN")
+	log.Info().Msg("FUNC_HandleNetHTTP__BEGIN")
 	svc.HandleApiAnyEngine(anyhttp.NewResReqNetHttp(res, req))
 }
 
 func (svc *RippleApiService) HandleApiFastHTTP(ctx *fasthttp.RequestCtx) {
-	log.Info("HANDLE_FastHTTP")
+	log.Info().Msg("HANDLE_FastHTTP")
 	svc.HandleApiAnyEngine(anyhttp.NewResReqFastHttp(ctx))
 }
 
 func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
-	log.Info("FUNC_HandleAnyEngine__BEGIN")
-
-	log.Info(fmt.Sprintf("PATH_VAR [%s]", aReq.RequestURIVar("rippled_method")))
+	log.Info().Msg("FUNC_HandleAnyEngine__BEGIN")
+	log.Info().Str("method", aReq.RequestURIVar("rippled_method"))
 
 	bodyBytes, err := aReq.PostBody()
 	if err == nil {
-		log.Info(string(bodyBytes))
+		log.Info().Msg(string(bodyBytes))
 	}
 
 	if err == nil {
 		method := aReq.RequestURIVar("rippled_method")
-		log.Info(fmt.Sprintf("METHOD [%s]", method))
+		log.Info().Str("method", method)
 		jrpcReq := JsonRpcRequest{Method: method}
 		msi := map[string]interface{}{}
 		err := json.Unmarshal(bodyBytes, &msi)
@@ -75,14 +76,13 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 			jrpcURL = strings.TrimSpace(os.Getenv("JSON_RPC_URL"))
 		}
 		if len(jrpcURL) == 0 {
-			jrpcURL = network.RipplePublicServer1JsonRpcURL
+			jrpcURL = ripplenetwork.GetMainnetPublicJsonRpcUrl()
 		}
-		log.Info(fmt.Sprintf("FUNC_HandleAnyEngine__RemoteUrl [%s]", jrpcURL))
+		log.Info().Str("jsonRpcRemoteURL", jrpcURL)
 
 		sc := httpsimple.NewSimpleClient(nil, jrpcURL)
 		resp, err := sc.Do(httpsimple.SimpleRequest{
 			Method: http.MethodPost,
-			URL:    "",
 			Body:   jrpcReq,
 			IsJSON: true})
 		if err == nil {
@@ -123,8 +123,9 @@ func (svc RippleApiService) RouterFast() *fasthttprouter.Router {
 
 func main() {
 	svc := RippleApiService{
-		Port:   8080,
-		Engine: os.Getenv("HTTP_ENGINE")}
+		Port:              8080,
+		Engine:            os.Getenv("HTTP_ENGINE"),
+		DefaultJsonRpcUrl: os.Getenv("RIPPLED_SERVER_JSONRPC_URL")}
 	fmtutil.PrintJSON(svc)
 
 	httpsimple.Serve(svc)
