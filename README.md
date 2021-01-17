@@ -1,5 +1,10 @@
 # Ripple API
 
+[![Build Status][build-status-svg]][build-status-url]
+[![Go Report Card][goreport-svg]][goreport-url]
+[![Docs][docs-godoc-svg]][docs-godoc-url]
+[![License][license-svg]][license-url]
+
 Ripple API provides a HTTP-based API for the [`rippled` server](https://github.com/ripple/rippled).
 
 https://xrpl.org/rippled-api.html
@@ -53,3 +58,12 @@ POST /api/account_info
   ]
 }
 ```
+
+ [build-status-svg]: https://github.com/wecoinshq/ripple-api/workflows/build/badge.svg?branch=master
+ [build-status-url]: https://github.com/wecoinshq/ripple-api/actions
+ [goreport-svg]: https://goreportcard.com/badge/github.com/wecoinshq/ripple-api
+ [goreport-url]: https://goreportcard.com/report/github.com/wecoinshq/ripple-api
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/wecoinshq/ripple-api
+ [docs-godoc-url]: https://pkg.go.dev/github.com/wecoinshq/ripple-api
+ [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
+ [license-url]: https://github.com/wecoinshq/ripple-api/blob/master/LICENSE
