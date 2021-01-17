@@ -3,5 +3,6 @@
 _*
 coverage.txt
 debug.test
+js/node_modules/*
 main
 main.zip
