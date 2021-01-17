@@ -5,7 +5,7 @@
 [![Docs][docs-godoc-svg]][docs-godoc-url]
 [![License][license-svg]][license-url]
 
-Ripple API provides a HTTP-based API for the [`rippled` server](https://github.com/ripple/rippled).
+Ripple API provides a HTTP-RPC based API for the [`rippled` server](https://github.com/ripple/rippled). It is more REST-like than the existing interfaces and should be eaiser to use for those with REST API experience, while remaining close enough to the `rippled` server to ensure maintenance, support and documenation should be eaiser than if a larger change was introduced.
 
 https://xrpl.org/rippled-api.html
 
