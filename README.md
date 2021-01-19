@@ -9,6 +9,12 @@ Ripple API provides a HTTP-RPC based API for the [`rippled` server](https://gith
 
 Ripple API can run as a stand-alone server using `net/http` or `fasthttp`. It can also run on AWS Lambda behind an AWS API Gateway Proxy.
 
+## API Spec
+
+The API Spec is a work in progress and available at:
+
+[`wecoins-ripple.json`](wecoins-ripple.json)
+
 ## Example Request
 
 ### API Request: HTTP API
