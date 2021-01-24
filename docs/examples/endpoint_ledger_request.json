@@ -1,0 +1,8 @@
+{
+	"ledger_index": "validated",
+	"accounts": false,
+	"full": false,
+	"transactions": false,
+	"expand": false,
+	"owner_funds": false
+}
