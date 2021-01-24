@@ -3,22 +3,45 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"html"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/buaazp/fasthttprouter"
+	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/gorilla/mux"
+	"github.com/grokify/simplego/encoding/jsonutil"
 	"github.com/grokify/simplego/fmt/fmtutil"
 	"github.com/grokify/simplego/net/anyhttp"
 	"github.com/grokify/simplego/net/http/httpsimple"
+	"github.com/grokify/simplego/strconv/strconvutil"
+	"github.com/grokify/simplego/type/stringsutil"
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
+	"github.com/valyala/fastjson"
 
 	ripplenetwork "github.com/wecoinshq/ripple-network"
 )
+
+func (svc *RippleApiService) HandleApiInfoFastHTTP(ctx *fasthttp.RequestCtx) {
+	svc.HandleApiInfoAnyEngine(anyhttp.NewResReqFastHttp(ctx))
+}
+
+func (svc *RippleApiService) HandleApiInfoNetHTTP(res http.ResponseWriter, req *http.Request) {
+	svc.HandleApiInfoAnyEngine(anyhttp.NewResReqNetHttp(res, req))
+}
+
+func (svc *RippleApiService) HandleApiInfoAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
+	var apiInfo = openapi3.Info{
+		Title:   "WeCoins Ripple API Proxy",
+		Version: "1.0.0",
+	}
+	bytes, _ := json.Marshal(apiInfo)
+	// aRes.SetStatusCode(http.StatusOK)
+	aRes.SetStatusCode(400)
+	aRes.SetBodyBytes(bytes)
+}
 
 type JsonRpcRequest struct {
 	Method string                   `json:"method"`
@@ -29,11 +52,6 @@ type RippleApiService struct {
 	Port              int
 	Engine            string
 	DefaultJsonRpcUrl string
-}
-
-func (svc *RippleApiService) HandleTestNetHTTP(res http.ResponseWriter, req *http.Request) {
-	log.Info().Msg("FUNC_HandleNetHTTP__BEGIN")
-	fmt.Fprintf(res, `{"foo":"%q"}`, html.EscapeString(req.URL.Path))
 }
 
 func (svc *RippleApiService) HandleApiNetHTTP(res http.ResponseWriter, req *http.Request) {
@@ -88,7 +106,7 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 		if err == nil {
 			respBodyBytes, err := ioutil.ReadAll(resp.Body)
 			if err == nil {
-				aRes.SetBodyBytes(respBodyBytes)
+				aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
 			}
 		}
 	}
@@ -108,7 +126,10 @@ func (svc RippleApiService) HttpEngine() string {
 
 func (svc RippleApiService) Router() http.Handler {
 	mux := mux.NewRouter()
-	mux.HandleFunc("/", http.HandlerFunc(svc.HandleTestNetHTTP))
+	mux.HandleFunc("/test", http.HandlerFunc(httpsimple.HandleTestNetHTTP))
+	mux.HandleFunc("/test/", http.HandlerFunc(httpsimple.HandleTestNetHTTP))
+	mux.HandleFunc("/api", http.HandlerFunc(svc.HandleApiInfoNetHTTP))
+	mux.HandleFunc("/api/", http.HandlerFunc(svc.HandleApiInfoNetHTTP))
 	mux.HandleFunc("/api/v1/{rippled_method}", http.HandlerFunc(svc.HandleApiNetHTTP))
 	mux.HandleFunc("/api/v1/{rippled_method}/", http.HandlerFunc(svc.HandleApiNetHTTP))
 	return mux
@@ -121,10 +142,19 @@ func (svc RippleApiService) RouterFast() *fasthttprouter.Router {
 	return router
 }
 
+func SubobjectBytes(data []byte, key string) ([]byte, error) {
+	val, err := fastjson.ParseBytes(data)
+	if err != nil {
+		return []byte{}, err
+	}
+	obj := val.GetObject(key)
+	return obj.MarshalTo([]byte{}), nil
+}
+
 func main() {
 	svc := RippleApiService{
-		Port:              8080,
-		Engine:            os.Getenv("HTTP_ENGINE"),
+		Port:              strconvutil.AtoiOrDefault(os.Getenv("PORT"), 8080),
+		Engine:            stringsutil.TrimSpaceOrDefault(os.Getenv("HTTP_ENGINE"), "nethttp"),
 		DefaultJsonRpcUrl: os.Getenv("RIPPLED_SERVER_JSONRPC_URL")}
 	fmtutil.PrintJSON(svc)
 
