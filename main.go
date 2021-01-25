@@ -15,6 +15,7 @@ import (
 	"github.com/grokify/simplego/fmt/fmtutil"
 	"github.com/grokify/simplego/net/anyhttp"
 	"github.com/grokify/simplego/net/http/httpsimple"
+	"github.com/grokify/simplego/net/httputilmore"
 	"github.com/grokify/simplego/strconv/strconvutil"
 	"github.com/grokify/simplego/type/stringsutil"
 	"github.com/rs/zerolog/log"
@@ -39,7 +40,8 @@ func (svc *RippleApiService) HandleApiInfoAnyEngine(aRes anyhttp.Response, aReq 
 	}
 	bytes, _ := json.Marshal(apiInfo)
 	// aRes.SetStatusCode(http.StatusOK)
-	aRes.SetStatusCode(400)
+	// aRes.SetStatusCode(400)
+	aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
 	aRes.SetBodyBytes(bytes)
 }
 
@@ -106,15 +108,13 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 		if err == nil {
 			respBodyBytes, err := ioutil.ReadAll(resp.Body)
 			if err == nil {
+				// Content-Type: text/plain; charset=utf-8
+				aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
 				aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
 			}
 		}
 	}
 }
-
-/*
-curl -H 'Content-Type: application/json' -d '{"method":"account_info","params":[{"account":"r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59","strict":true,"ledger_index":"current","queue":true}]}' https://s1.ripple.com:51234/
-*/
 
 func (svc RippleApiService) PortInt() int {
 	return svc.Port
@@ -161,26 +161,3 @@ func main() {
 	httpsimple.Serve(svc)
 	fmt.Println("DONE")
 }
-
-/*
-
-curl -XPOST 'http://localhost:8080/api/account_channels/?abc-def&ghi-jkl#anchor' -d '{"account":"rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH","destination_account":"rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn","ledger_index":"validated"}'
-
-
-{
-        "account": "rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH",
-        "destination_account": "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn",
-        "ledger_index": "validated"
-    }
-
-{
-    "method": "account_channels",
-    "params": [{
-        "account": "rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH",
-        "destination_account": "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn",
-        "ledger_index": "validated"
-    }]
-}
-
-
-*/

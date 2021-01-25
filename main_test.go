@@ -10,7 +10,7 @@ var specTests = []struct {
 	filepath string
 	title    string
 }{
-	{"wecoins-ripple.json", "WeCoins Ripple API"},
+	{"spec_wecoins-ripple_openapi3.json", "WeCoins Ripple API"},
 }
 
 // TestSpecs test reading specs.
