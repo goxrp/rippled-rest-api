@@ -1,0 +1,199 @@
+{
+  "info": {
+    "name": "WeCoins Ripple API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "Get Account Payment Channels",
+          "request": {
+            "url": {
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_channels",
+              "host": [
+                "{{WECOINS_RIPPLE_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "account_channels"
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"account\": \"rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH\",\n\t\"destination_account\": \"rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn\",\n\t\"ledger_index\": \"validated\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Account Currencies",
+          "request": {
+            "url": {
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_currencies",
+              "host": [
+                "{{WECOINS_RIPPLE_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "account_currencies"
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"account\": \"r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59\",\n\t\"account_index\": 0,\n\t\"ledger_index\": \"validated\",\n\t\"strict\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Account Info",
+          "request": {
+            "url": {
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_info",
+              "host": [
+                "{{WECOINS_RIPPLE_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "account_info"
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"account\": \"rG1QQv2nh2gr7RCZ1P8YYcBUKCCN633jCn\",\n\t\"strict\": true,\n\t\"ledger_index\": \"current\",\n\t\"queue\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Account Lines",
+          "request": {
+            "url": {
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_lines",
+              "host": [
+                "{{WECOINS_RIPPLE_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "account_lines"
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"account\": \"r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Account Object",
+          "request": {
+            "url": {
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_objects",
+              "host": [
+                "{{WECOINS_RIPPLE_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "account_objects"
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"account\": \"r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59\",\n\t\"ledger_index\": \"validated\",\n\t\"type\": \"state\",\n\t\"deletion_blockers_only\": false,\n\t\"limit\": 10\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Account Offers",
+          "request": {
+            "url": {
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_offers",
+              "host": [
+                "{{WECOINS_RIPPLE_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "account_offers"
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"account\": \"rpP2JgiMyTF5jR5hLG3xHCPi1knBb1v9cM\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
