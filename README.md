@@ -7,13 +7,32 @@
 
 Ripple API provides a HTTP-RPC based API for the [`rippled` server](https://github.com/ripple/rippled). It is more REST-like than the existing interfaces and should be eaiser to use for those with REST API experience, while remaining close enough to the [`rippled` server's API](https://xrpl.org/rippled-api.html) to ensure maintenance, support and documenation should be eaiser than if a larger change was introduced.
 
-Ripple API can run as a stand-alone server using `net/http` or `fasthttp`. It can also run on AWS Lambda behind an AWS API Gateway Proxy.
+## Installation
+
+Ripple API can run as a stand-alone server using `net/http` or `fasthttp`. It can also run on AWS Lambda behind an AWS API Gateway Proxy. This is set by setting the `HTTP_ENGINE` environment variable to one of `nethttp`, `fasthttp` or `awslambda`.
+
+## AWS Lambda
+
+1. Use the `aws-package.sh` script to create a zip file to upload to AWS Lambda.
+1. Change "Runtime settings"  > "Handler" to `main` from `hello`
+
+### Testing
+
+Test with:
+
+* `curl -XGET 'https://{gatewayId}.execute-api.{awsZone}.amazonaws.com/{stage}/api'`
+* `curl -XPOST 'https://{gatewayId}.execute-api.{awsZone}.amazonaws.com/{stage}/api/v1/account_info' -H 'Content-Type: application/json' -d @docs/examples/endpoint_account_info_request.json`
+
+## Heroku
+
+Heroku relies on the `PORT` environment variable.
 
 ## API Spec
 
 The API Spec is a work in progress and available at:
 
-[`wecoins-ripple.json`](wecoins-ripple.json)
+* [`spec_wecoins-ripple_openapi3.json`](spec_wecoins-ripple_openapi3.json)
+* [`spec_wecoins-ripple_postman2.json`](spec_wecoins-ripple_postman2.json)
 
 ## Example Request
 
