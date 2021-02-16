@@ -57,6 +57,20 @@
             "type": "integer"
           }
         },
+        "required": [
+          "account",
+          "amount",
+          "balance",
+          "cancel_after",
+          "channel_id",
+          "destination_account",
+          "destination_tag",
+          "expiration",
+          "public_key",
+          "public_key_hex",
+          "settle_delay",
+          "source_tag"
+        ],
         "type": "object"
       },
       "AccountChannelsRequest": {
@@ -131,6 +145,15 @@
             "type": "boolean"
           }
         },
+        "required": [
+          "account",
+          "channels",
+          "ledger_hash",
+          "ledger_index",
+          "limit",
+          "marker",
+          "validated"
+        ],
         "type": "object"
       },
       "AccountCurrenciesRequest": {
@@ -188,6 +211,13 @@
             "type": "boolean"
           }
         },
+        "required": [
+          "ledger_hash",
+          "ledger_index",
+          "receive_currencies",
+          "send_currencies",
+          "validated"
+        ],
         "type": "object"
       },
       "AccountInfoQueueData": {
@@ -255,6 +285,79 @@
             "type": "boolean"
           }
         },
+        "required": [
+          "ledger_current_index",
+          "ledger_index",
+          "validated"
+        ],
+        "type": "object"
+      },
+      "AccountLinesRequest": {
+        "properties": {
+          "account": {
+            "description": "A unique identifier for the account, most commonly the account's Address.",
+            "type": "string"
+          },
+          "ledger_hash": {
+            "description": "*(Optional)* A 20-byte hex string for the ledger version to use. (See Specifying Ledgers)",
+            "type": "string"
+          },
+          "ledger_index": {
+            "description": "*(Optional)* The ledger index of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)",
+            "type": "string"
+          },
+          "limit": {
+            "description": "(Optional, default varies) Limit the number of trust lines to retrieve. The server is not required to honor this value. Must be within the inclusive range 10 to 400.",
+            "type": "integer",
+            "x-addded": "rippled 0.26.4"
+          },
+          "marker ": {
+            "description": "(Optional) Value from a previous paginated response. Resume retrieving data where that response left off.",
+            "type": "object",
+            "x-addded": "rippled 0.26.4"
+          },
+          "peer": {
+            "description": "(Optional) The Address of a second account. If provided, show only lines of trust connecting the two accounts.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "account"
+        ],
+        "type": "object"
+      },
+      "AccountLinesResponse": {
+        "description": "This object represents information about an account's trust lines, including balances in all non-XRP currencies and assets. All information retrieved is relative to a particular version of the ledger.",
+        "properties": {
+          "account": {
+            "description": "A unique identifier for the account, most commonly the account's Address.",
+            "type": "string"
+          },
+          "ledger_hash": {
+            "description": "(Optional) A 20-byte hex string for the ledger version to use. (See Specifying Ledgers)",
+            "type": "string"
+          },
+          "ledger_index": {
+            "description": "(Optional) The ledger index of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers).",
+            "format": "string, uint64",
+            "type": "string"
+          },
+          "limit": {
+            "description": "(Optional, default varies) Limit the number of trust lines to retrieve. The server is not required to honor this value. Must be within the inclusive range 10 to 400.",
+            "type": "integer"
+          },
+          "marker": {
+            "description": "(Optional) Value from a previous paginated response. Resume retrieving data where that response left off.",
+            "type": "object"
+          },
+          "peer": {
+            "description": "(Optional) The Address of a second account. If provided, show only lines of trust connecting the two accounts.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account"
+        ],
         "type": "object"
       },
       "AccountRoot": {
@@ -342,11 +445,13 @@
             "x-internalType": "UInt32"
           },
           "WalletLocator": {
+            "deprecated": true,
             "description": "*(Optional)* **DEPRECATED.** Do not use.",
             "type": "string",
             "x-internalType": "Hash256"
           },
           "WalletSize": {
+            "deprecated": true,
             "description": "*(Optional)* **DEPRECATED.** Do not use.",
             "format": "uint32",
             "type": "string",
@@ -356,20 +461,482 @@
             "type": "string"
           }
         },
+        "required": [
+          "Account",
+          "Balance",
+          "Flags",
+          "LedgerEntryType",
+          "OwnerCount",
+          "PreviousTxnID",
+          "PreviousTxnLgrSeq",
+          "Sequence"
+        ],
+        "type": "object"
+      },
+      "Ledger": {
+        "description": "The complete header data of this ledger. Need to validate `accountState` in response.",
+        "properties": {
+          "accepted": {
+            "type": "boolean"
+          },
+          "account_hash": {
+            "description": "Hash of all account state information in this ledger, as hex",
+            "type": "string"
+          },
+          "close_flags": {
+            "type": "integer"
+          },
+          "close_time": {
+            "description": "The time this ledger was closed, in seconds since the Ripple Epoch",
+            "format": "int64",
+            "type": "integer"
+          },
+          "close_time_human": {
+            "description": "The time this ledger was closed, in human-readable format. Always uses the UTC time zone. 2020-Mar-24 01:41:11.000000000 UTC; 2006-Jan-02 15:04:05.999999999 MST",
+            "type": "string"
+          },
+          "close_time_resolution": {
+            "description": "Ledger close times are rounded to within this many seconds.",
+            "type": "integer"
+          },
+          "closed": {
+            "description": "Whether or not this ledger has been closed",
+            "type": "boolean"
+          },
+          "hash": {
+            "deprecated": true,
+            "description": "use ledger_hash instead",
+            "type": "string"
+          },
+          "ledger_hash": {
+            "description": "Unique identifying hash of the entire ledger.",
+            "type": "string"
+          },
+          "ledger_index": {
+            "description": "The Ledger Index of this ledger, as a quoted integer",
+            "type": "string"
+          },
+          "parent_close_time": {
+            "description": "The time at which the previous ledger was closed.",
+            "type": "integer"
+          },
+          "parent_hash": {
+            "description": "Unique identifying hash of the ledger that came immediately before this one.",
+            "type": "string"
+          },
+          "seqNum": {
+            "deprecated": true,
+            "description": "use ledger_index instead",
+            "type": "string"
+          },
+          "totalCoins": {
+            "deprecated": true,
+            "description": "use total_coins instead",
+            "type": "string"
+          },
+          "total_coins": {
+            "description": "Total number of XRP drops in the network, as a quoted integer. (This decreases as transaction costs destroy XRP.)",
+            "type": "string"
+          },
+          "transaction_hash": {
+            "description": "Hash of the transaction information included in this ledger, as hex",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_hash",
+          "close_time",
+          "close_time_human",
+          "close_time_resolution",
+          "closed",
+          "hash",
+          "ledger_hash",
+          "ledger_index",
+          "parent_close_time",
+          "parent_hash",
+          "seqNum",
+          "totalCoins",
+          "total_coins",
+          "transaction_hash"
+        ],
+        "type": "object"
+      },
+      "LedgerClosedRequestJsonrpc": {
+        "properties": {
+          "method": {
+            "description": "Set to `ledger_closed`",
+            "enum": [
+              "ledger_closed"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "method"
+        ],
+        "type": "object"
+      },
+      "LedgerClosedRequestWebsocket": {
+        "properties": {
+          "command": {
+            "enum": [
+              "ledger_closed"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          }
+        }
+      },
+      "LedgerClosedResponse": {
+        "properties": {
+          "ledger_hash": {
+            "description": "The unique Hash of this ledger version, in hexadecimal.",
+            "type": "string"
+          },
+          "ledger_index": {
+            "description": "The ledger index of this ledger version.",
+            "format": "uint64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ledger_hash",
+          "ledger_index"
+        ],
+        "type": "object"
+      },
+      "LedgerCurrentRequestJsonrpc": {
+        "properties": {
+          "method": {
+            "description": "Set to `ledger_current`",
+            "enum": [
+              "ledger_current"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "method"
+        ],
+        "type": "object"
+      },
+      "LedgerCurrentRequestWebsocket": {
+        "properties": {
+          "command": {
+            "enum": [
+              "ledger_current"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          }
+        }
+      },
+      "LedgerCurrentResponse": {
+        "description": "A ledger_hash field is not provided, because the hash of the current ledger is constantly changing along with its contents.",
+        "properties": {
+          "ledger_current_index": {
+            "description": "The ledger index of this ledger version.",
+            "format": "uint64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ledger_current_index"
+        ],
+        "type": "object"
+      },
+      "LedgerEntryDepositPreauth": {
+        "properties": {
+          "authorized": {
+            "description": "(Required if `deposit_preauth` is specified as an object) The account that received the preauthorization.",
+            "format": "address",
+            "type": "string"
+          },
+          "owner": {
+            "description": "(Required if `deposit_preauth` is specified as an object) The account that provided the preauthorization.",
+            "format": "address",
+            "type": "string"
+          }
+        },
+        "required": [
+          "authorized",
+          "owner"
+        ],
+        "type": "object"
+      },
+      "LedgerEntryDirectoryID": {
+        "description": "(Optional) Specify a [DirectoryNode](https://xrpl.org/directorynode.html) to retrieve. If a string, must be the object ID of the directory, as hexadecimal. If an object, requires either dir_root or owner as a sub-field, plus optionally a sub_index sub-field.",
+        "type": "string"
+      },
+      "LedgerEntryDirectoryNode": {
+        "description": "(Optional) Specify a [DirectoryNode](https://xrpl.org/directorynode.html) to retrieve. If a string, must be the object ID of the directory, as hexadecimal. If an object, requires either dir_root or owner as a sub-field, plus optionally a sub_index sub-field.",
+        "properties": {
+          "dir_root": {
+            "description": "(Required if `directory` is specified as an object and `directory.owner` is not provided) Unique index identifying the directory to retrieve, as a hex string.",
+            "type": "string"
+          },
+          "owner": {
+            "description": "(Required if `directory` is specified as an object and `directory.dir_root` is not provided) Unique address of the account associated with this directory.",
+            "type": "string"
+          },
+          "sub_index": {
+            "description": "(Optional) If provided, jumps to a later \"page\" of the [DirectoryNode](https://xrpl.org/directorynode.html).",
+            "format": "uint64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "dir_root",
+          "owner"
+        ],
+        "type": "object"
+      },
+      "LedgerEntryEscrow": {
+        "description": "(Optional) Specify a [DirectoryNode](https://xrpl.org/directorynode.html) to retrieve. If a string, must be the object ID of the directory, as hexadecimal. If an object, requires either dir_root or owner as a sub-field, plus optionally a sub_index sub-field.",
+        "properties": {
+          "seq": {
+            "description": "(Required if escrow is specified as an object) The sequence number of the transaction that created the Escrow object.",
+            "format": "uint64",
+            "type": "integer"
+          },
+          "sub_index": {
+            "description": "(Required if escrow is specified as an object) The owner (sender) of the Escrow object.",
+            "format": "address",
+            "type": "string"
+          }
+        },
+        "required": [
+          "seq",
+          "sub_index"
+        ],
+        "type": "object"
+      },
+      "LedgerEntryEscrowID": {
+        "description": "(Optional) Specify an Escrow object to retrieve. If a string, must be the object ID of the Escrow, as hexadecimal. If an object, requires owner and seq sub-fields.",
+        "type": "string"
+      },
+      "LedgerEntryRequest": {
+        "properties": {
+          "check": {
+            "description": "(Optional) Specify the [object ID](https://xrpl.org/ledger-object-ids.html) of a [Check object](https://xrpl.org/check.html) to retrieve.",
+            "type": "string"
+          },
+          "deposit_preauth": {
+            "description": "(Optional) Specify a DepositPreauth object to retrieve. If a string, must be the object ID of the DepositPreauth object, as hexadecimal. If an object, requires owner and authorized sub-fields.",
+            "type": "string",
+            "x-investigate": true,
+            "x-investigate-notes": "oneOf(string,DepositPreauth)"
+          },
+          "directory": {
+            "description": "(Optional) Specify a [DirectoryNode](https://xrpl.org/directorynode.html) to retrieve. If a string, must be the object ID of the directory, as hexadecimal. If an object, requires either dir_root or owner as a sub-field, plus optionally a sub_index sub-field.",
+            "type": "string",
+            "x-investigate": true,
+            "x-investigate-notes": "onOf(string,DirectoryNode)"
+          },
+          "escrow": {
+            "description": "(Optional) Specify an Escrow object to retrieve. If a string, must be the object ID of the Escrow, as hexadecimal. If an object, requires owner and seq sub-fields",
+            "type": "string"
+          },
+          "index": {
+            "description": "(Optional) Specify the [object ID](https://xrpl.org/ledger-object-ids.html) of a single object to retrieve from the ledger.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LedgerEntryResponse": {
+        "properties": {
+          "index": {
+            "description": "The unique ID of this ledger object.",
+            "format": "address",
+            "type": "string"
+          },
+          "ledger_index": {
+            "description": "The ledger index of the ledger that was used when retrieving this data.",
+            "format": "uint64",
+            "type": "integer"
+          },
+          "node": {
+            "$ref": "#/components/schemas/LedgerEntryResultNode"
+          },
+          "node_binary": {
+            "description": "(Omitted unless \"binary\":true specified) The binary representation of the ledger object, as hexadecimal.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "index",
+          "ledger_index",
+          "node_binary"
+        ],
+        "type": "object"
+      },
+      "LedgerEntryResultNode": {
+        "properties": {
+          "Account": {
+            "type": "string"
+          },
+          "Balance": {
+            "type": "string"
+          },
+          "Flags": {
+            "type": "integer"
+          },
+          "LedgerEntryType": {
+            "type": "integer"
+          },
+          "OwnerCount": {
+            "type": "integer"
+          },
+          "PreviousTxnID": {
+            "type": "string"
+          },
+          "PreviousTxnLgrSeq": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "Sequence": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "index": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LedgerQueueDatum": {
+        "properties": {
+          "LastLedgerSequence": {
+            "example": 61616015,
+            "type": "integer"
+          },
+          "account": {
+            "example": "r3rhWeE31Jt5sWmi4QiGLMZnY3ENgqw96W",
+            "type": "string"
+          },
+          "fee_level": {
+            "example": "256",
+            "type": "string"
+          },
+          "preflight_result": {
+            "example": "tesSUCCESS",
+            "type": "string"
+          },
+          "retries_remaining": {
+            "example": 10,
+            "type": "integer"
+          },
+          "tx": {
+            "example": "DCBF41F11E6A17C5C9DDBFAC327F92FBB48545D9B5940BEDAE3B9BCFA4E8976E",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LedgerRequest": {
+        "properties": {
+          "accounts": {
+            "description": "(Optional) Admin required. If true, return information on accounts in the ledger. Ignored if you did not specify a ledger version. Defaults to false. Caution: This returns a very large amount of data!",
+            "type": "boolean"
+          },
+          "binary": {
+            "description": "(Optional) If true, and transactions and expand are both also true, return transaction information in binary format (hexadecimal string) instead of JSON format.",
+            "type": "boolean"
+          },
+          "expand": {
+            "description": "(Optional) Provide full JSON-formatted information for transaction/account information instead of only hashes. Defaults to false. Ignored unless you request transactions, accounts, or both.",
+            "type": "boolean"
+          },
+          "full": {
+            "description": "(Optional) Admin required If true, return full information on the entire ledger. Ignored if you did not specify a ledger version. Defaults to false. (Equivalent to enabling transactions, accounts, and expand.) Caution: This is a very large amount of data -- on the order of several hundred megabytes!",
+            "type": "boolean"
+          },
+          "ledger_hash": {
+            "description": "(Optional) A 20-byte hex string for the ledger version to use. (See Specifying Ledgers).",
+            "type": "string"
+          },
+          "ledger_index": {
+            "description": "(Optional) The ledger index of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)",
+            "type": "string"
+          },
+          "owner_funds": {
+            "description": "(Optional) If true, include owner_funds field in the metadata of OfferCreate transactions in the response. Defaults to false. Ignored unless transactions are included and expand is true.",
+            "type": "boolean"
+          },
+          "queue": {
+            "description": "(Optional) If true, and the command is requesting the current ledger, includes an array of queued transactions in the results.",
+            "type": "boolean"
+          },
+          "transactions": {
+            "description": "(Optional) If true, return information on transactions in the specified ledger version. Defaults to false. Ignored if you did not specify a ledger version.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "LedgerResponse": {
+        "description": "Information about the public ledger.",
+        "properties": {
+          "ledger": {
+            "$ref": "#/components/schemas/Ledger"
+          },
+          "ledger_hash": {
+            "description": "Unique identifying hash of the entire ledger.",
+            "type": "string"
+          },
+          "ledger_index": {
+            "description": "The Ledger Index of this ledger.",
+            "type": "number"
+          },
+          "queue_data": {
+            "description": "(Omitted unless requested with the queue parameter) Array of objects describing queued transactions, in the same order as the queue. If the request specified expand as true, members contain full representations of the transactions, in either JSON or binary depending on whether the request specified `binary` as true. Added by the FeeEscalation amendment.",
+            "items": {
+              "$ref": "#/components/schemas/LedgerQueueDatum"
+            },
+            "type": "array"
+          },
+          "status": {
+            "type": "string"
+          },
+          "validated": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ledger_hash",
+          "ledger_index",
+          "queue_data"
+        ],
+        "type": "object"
+      },
+      "QueueTx": {
+        "properties": {
+          "account": {
+            "$ref": "#/components/schemas/Ledger"
+          }
+        },
         "type": "object"
       }
     }
   },
   "info": {
-    "title": "WeCoins Ripple API",
-    "version": "0.0.1"
+    "title": "WeCoins Ripple Ledger API",
+    "version": "1.0.0"
   },
   "openapi": "3.0.3",
   "paths": {
-    "/account_channels": {
+    "/api/ledger/v1.0/account_channels": {
       "post": {
         "description": "This endpoint returns information about an account's Payment Channels. This includes only channels where the specified account is the channel's source, not the destination. (A channel's \"source\" and \"owner\" are the same.) All information retrieved is relative to a particular version of the ledger.",
-        "operationId": "account_channels",
+        "externalDocs": {
+          "url": "https://xrpl.org/account_channels.html"
+        },
+        "operationId": "getAccountChannels",
         "requestBody": {
           "content": {
             "application/json": {
@@ -388,7 +955,7 @@
                 }
               }
             },
-            "description": "This object contains information about an account's Payment Channels. This includes only channels where the specified account is the channel's source, not the destination. (A channel's \"source\" and \"owner\" are the same.) All information retrieved is relative to a particular version of the ledger."
+            "description": "This endpoint returns information about an account's Payment Channels. This includes only channels where the specified account is the channel's source, not the destination. (A channel's \"source\" and \"owner\" are the same.) All information retrieved is relative to a particular version of the ledger."
           }
         },
         "summary": "Get Account Payment Channels",
@@ -397,10 +964,13 @@
         ]
       }
     },
-    "/account_currencies": {
+    "/api/ledger/v1.0/account_currencies": {
       "post": {
         "description": "This endpoint retrieves a list of currencies that an account can send or receive, based on its trust lines. (This is not a thoroughly confirmed list, but it can be used to populate user interfaces.)",
-        "operationId": "account_currencies",
+        "externalDocs": {
+          "url": "https://xrpl.org/account_currencies.html"
+        },
+        "operationId": "getAccountCurrencies",
         "requestBody": {
           "content": {
             "application/json": {
@@ -419,7 +989,7 @@
                 }
               }
             },
-            "description": "A list of currencies that an account can send or receive, based on its trust lines. (This is not a thoroughly confirmed list, but it can be used to populate user interfaces.)"
+            "description": "This endpoint retrieves a list of currencies that an account can send or receive, based on its trust lines. (This is not a thoroughly confirmed list, but it can be used to populate user interfaces.)"
           }
         },
         "summary": "Get Account Currencies",
@@ -428,10 +998,10 @@
         ]
       }
     },
-    "/account_info": {
+    "/api/ledger/v1.0/account_info": {
       "post": {
         "description": "The endpoint command retrieves information about an account, its activity, and its XRP balance. All information retrieved is relative to a particular version of the ledger.",
-        "operationId": "account_info",
+        "operationId": "getAccountInfo",
         "requestBody": {
           "content": {
             "application/json": {
@@ -450,12 +1020,161 @@
                 }
               }
             },
-            "description": "This object contains information about an account, its activity, and its XRP balance. All information retrieved is relative to a particular version of the ledger."
+            "description": "The endpoint command retrieves information about an account, its activity, and its XRP balance. All information retrieved is relative to a particular version of the ledger."
           }
         },
         "summary": "Get Account Info",
         "tags": [
           "Account"
+        ]
+      }
+    },
+    "/api/ledger/v1.0/account_lines": {
+      "post": {
+        "description": "Get info about an account's trust lines.",
+        "operationId": "getAccountLines",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountLinesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountLinesResponse"
+                }
+              }
+            },
+            "description": "Get info about an account's trust lines."
+          }
+        },
+        "summary": "Get Account Lines",
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/api/ledger/v1.0/ledger": {
+      "post": {
+        "description": "Get info about a ledger version.",
+        "externalDocs": {
+          "url": "https://xrpl.org/ledger.html"
+        },
+        "operationId": "getLedgerInfo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LedgerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerResponse"
+                }
+              }
+            },
+            "description": "Get info about a ledger version."
+          }
+        },
+        "summary": "Get Ledger Info",
+        "tags": [
+          "Ledger"
+        ]
+      }
+    },
+    "/api/ledger/v1.0/ledger_closed": {
+      "get": {
+        "description": "Get the latest closed ledger version.",
+        "externalDocs": {
+          "url": "https://xrpl.org/ledger_closed.html"
+        },
+        "operationId": "getLedgerClosed",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerClosedResponse"
+                }
+              }
+            },
+            "description": "Get the latest closed ledger version."
+          }
+        },
+        "summary": "Get Latest Closed Ledger Version",
+        "tags": [
+          "Ledger"
+        ]
+      }
+    },
+    "/api/ledger/v1.0/ledger_current": {
+      "get": {
+        "description": "Get the current working ledger version.",
+        "externalDocs": {
+          "url": "https://xrpl.org/ledger_current.html"
+        },
+        "operationId": "getLedgerCurrent",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerCurrentResponse"
+                }
+              }
+            },
+            "description": "Get the current working ledger version."
+          }
+        },
+        "summary": "Get Current In-Progress Ledger Info",
+        "tags": [
+          "Ledger"
+        ]
+      }
+    },
+    "/api/ledger/v1.0/ledger_entry": {
+      "post": {
+        "description": "Get one element from a ledger version.",
+        "externalDocs": {
+          "url": "https://xrpl.org/ledger_entry.html"
+        },
+        "operationId": "getLedgerEntry",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LedgerEntryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerEntryResponse"
+                }
+              }
+            },
+            "description": "Get one element from a ledger version."
+          }
+        },
+        "summary": "Get Ledger Object",
+        "tags": [
+          "Ledger"
         ]
       }
     }

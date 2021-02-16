@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "WeCoins Ripple API",
+    "name": "WeCoins Ripple Ledger API",
     "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
   },
   "item": [
@@ -11,19 +11,28 @@
           "name": "Get Account Payment Channels",
           "request": {
             "url": {
-              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_channels",
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/ledger/v1.0/account_channels",
               "host": [
                 "{{WECOINS_RIPPLE_BASE_URL}}"
               ],
               "path": [
                 "api",
-                "v1",
+                "ledger",
+                "v1.0",
                 "account_channels"
               ]
             },
             "method": "POST",
             "header": [
               {
+                "key": "X-RapidAPI-Key",
+                "value": "{{RAPIDAPI_KEY}}"
+              },
+              {
+                "key": "X-RapidAPI-Host",
+                "value": "{{RAPIDAPI_HOST}}"
+              },
+              {
                 "key": "Content-Type",
                 "value": "application/json"
               },
@@ -32,29 +41,35 @@
                 "value": "application/json"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"account\": \"rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH\",\n\t\"destination_account\": \"rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn\",\n\t\"ledger_index\": \"validated\"\n}"
-            }
+            "description": "This endpoint returns information about an account's Payment Channels. This includes only channels where the specified account is the channel's source, not the destination. (A channel's \"source\" and \"owner\" are the same.) All information retrieved is relative to a particular version of the ledger."
           }
         },
         {
           "name": "Get Account Currencies",
           "request": {
             "url": {
-              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_currencies",
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/ledger/v1.0/account_currencies",
               "host": [
                 "{{WECOINS_RIPPLE_BASE_URL}}"
               ],
               "path": [
                 "api",
-                "v1",
+                "ledger",
+                "v1.0",
                 "account_currencies"
               ]
             },
             "method": "POST",
             "header": [
               {
+                "key": "X-RapidAPI-Key",
+                "value": "{{RAPIDAPI_KEY}}"
+              },
+              {
+                "key": "X-RapidAPI-Host",
+                "value": "{{RAPIDAPI_HOST}}"
+              },
+              {
                 "key": "Content-Type",
                 "value": "application/json"
               },
@@ -63,29 +78,35 @@
                 "value": "application/json"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"account\": \"r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59\",\n\t\"account_index\": 0,\n\t\"ledger_index\": \"validated\",\n\t\"strict\": true\n}"
-            }
+            "description": "This endpoint retrieves a list of currencies that an account can send or receive, based on its trust lines. (This is not a thoroughly confirmed list, but it can be used to populate user interfaces.)"
           }
         },
         {
           "name": "Get Account Info",
           "request": {
             "url": {
-              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_info",
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/ledger/v1.0/account_info",
               "host": [
                 "{{WECOINS_RIPPLE_BASE_URL}}"
               ],
               "path": [
                 "api",
-                "v1",
+                "ledger",
+                "v1.0",
                 "account_info"
               ]
             },
             "method": "POST",
             "header": [
               {
+                "key": "X-RapidAPI-Key",
+                "value": "{{RAPIDAPI_KEY}}"
+              },
+              {
+                "key": "X-RapidAPI-Host",
+                "value": "{{RAPIDAPI_HOST}}"
+              },
+              {
                 "key": "Content-Type",
                 "value": "application/json"
               },
@@ -94,29 +115,35 @@
                 "value": "application/json"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"account\": \"rG1QQv2nh2gr7RCZ1P8YYcBUKCCN633jCn\",\n\t\"strict\": true,\n\t\"ledger_index\": \"current\",\n\t\"queue\": true\n}"
-            }
+            "description": "The endpoint command retrieves information about an account, its activity, and its XRP balance. All information retrieved is relative to a particular version of the ledger."
           }
         },
         {
           "name": "Get Account Lines",
           "request": {
             "url": {
-              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_lines",
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/ledger/v1.0/account_lines",
               "host": [
                 "{{WECOINS_RIPPLE_BASE_URL}}"
               ],
               "path": [
                 "api",
-                "v1",
+                "ledger",
+                "v1.0",
                 "account_lines"
               ]
             },
             "method": "POST",
             "header": [
               {
+                "key": "X-RapidAPI-Key",
+                "value": "{{RAPIDAPI_KEY}}"
+              },
+              {
+                "key": "X-RapidAPI-Host",
+                "value": "{{RAPIDAPI_HOST}}"
+              },
+              {
                 "key": "Content-Type",
                 "value": "application/json"
               },
@@ -125,28 +152,39 @@
                 "value": "application/json"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"account\": \"r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59\"\n}"
-            }
+            "description": "Get info about an account's trust lines."
           }
-        },
+        }
+      ]
+    },
+    {
+      "name": "Ledger",
+      "item": [
         {
-          "name": "Get Account Object",
+          "name": "Get Ledger Info",
           "request": {
             "url": {
-              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_objects",
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/ledger/v1.0/ledger",
               "host": [
                 "{{WECOINS_RIPPLE_BASE_URL}}"
               ],
               "path": [
                 "api",
-                "v1",
-                "account_objects"
+                "ledger",
+                "v1.0",
+                "ledger"
               ]
             },
             "method": "POST",
             "header": [
+              {
+                "key": "X-RapidAPI-Key",
+                "value": "{{RAPIDAPI_KEY}}"
+              },
+              {
+                "key": "X-RapidAPI-Host",
+                "value": "{{RAPIDAPI_HOST}}"
+              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -156,28 +194,100 @@
                 "value": "application/json"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"account\": \"r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59\",\n\t\"ledger_index\": \"validated\",\n\t\"type\": \"state\",\n\t\"deletion_blockers_only\": false,\n\t\"limit\": 10\n}"
-            }
+            "description": "Get info about a ledger version."
           }
         },
         {
-          "name": "Get Account Offers",
+          "name": "Get Latest Closed Ledger Version",
           "request": {
             "url": {
-              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/v1/account_offers",
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/ledger/v1.0/ledger_closed",
               "host": [
                 "{{WECOINS_RIPPLE_BASE_URL}}"
               ],
               "path": [
                 "api",
-                "v1",
-                "account_offers"
+                "ledger",
+                "v1.0",
+                "ledger_closed"
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-RapidAPI-Key",
+                "value": "{{RAPIDAPI_KEY}}"
+              },
+              {
+                "key": "X-RapidAPI-Host",
+                "value": "{{RAPIDAPI_HOST}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "description": "Get the latest closed ledger version."
+          }
+        },
+        {
+          "name": "Get Current In-Progress Ledger Info",
+          "request": {
+            "url": {
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/ledger/v1.0/ledger_current",
+              "host": [
+                "{{WECOINS_RIPPLE_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "ledger",
+                "v1.0",
+                "ledger_current"
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-RapidAPI-Key",
+                "value": "{{RAPIDAPI_KEY}}"
+              },
+              {
+                "key": "X-RapidAPI-Host",
+                "value": "{{RAPIDAPI_HOST}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "description": "Get the current working ledger version."
+          }
+        },
+        {
+          "name": "Get Ledger Object",
+          "request": {
+            "url": {
+              "raw": "{{WECOINS_RIPPLE_BASE_URL}}/api/ledger/v1.0/ledger_entry",
+              "host": [
+                "{{WECOINS_RIPPLE_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "ledger",
+                "v1.0",
+                "ledger_entry"
               ]
             },
             "method": "POST",
             "header": [
+              {
+                "key": "X-RapidAPI-Key",
+                "value": "{{RAPIDAPI_KEY}}"
+              },
+              {
+                "key": "X-RapidAPI-Host",
+                "value": "{{RAPIDAPI_HOST}}"
+              },
               {
                 "key": "Content-Type",
                 "value": "application/json"
@@ -187,10 +297,7 @@
                 "value": "application/json"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n\t\"account\": \"rpP2JgiMyTF5jR5hLG3xHCPi1knBb1v9cM\"\n}"
-            }
+            "description": "Get one element from a ledger version."
           }
         }
       ]
