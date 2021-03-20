@@ -25,6 +25,8 @@ import (
 	ripplenetwork "github.com/wecoinshq/ripple-network"
 )
 
+const BaseURLPath = "/api/ledger/v1.0/"
+
 func (svc *RippleApiService) HandleApiInfoFastHTTP(ctx *fasthttp.RequestCtx) {
 	svc.HandleApiInfoAnyEngine(anyhttp.NewResReqFastHttp(ctx))
 }
@@ -54,6 +56,7 @@ type RippleApiService struct {
 	Port              int
 	Engine            string
 	DefaultJsonRpcUrl string
+	BaseURLPath       string
 }
 
 func (svc *RippleApiService) HandleApiNetHTTP(res http.ResponseWriter, req *http.Request) {
@@ -130,15 +133,15 @@ func (svc RippleApiService) Router() http.Handler {
 	mux.HandleFunc("/test/", http.HandlerFunc(httpsimple.HandleTestNetHTTP))
 	mux.HandleFunc("/api", http.HandlerFunc(svc.HandleApiInfoNetHTTP))
 	mux.HandleFunc("/api/", http.HandlerFunc(svc.HandleApiInfoNetHTTP))
-	mux.HandleFunc("/api/ledger/v1.0/{rippled_method}", http.HandlerFunc(svc.HandleApiNetHTTP))
-	mux.HandleFunc("/api/ledger/v1.0/{rippled_method}/", http.HandlerFunc(svc.HandleApiNetHTTP))
+	mux.HandleFunc(BaseURLPath+"{rippled_method}", http.HandlerFunc(svc.HandleApiNetHTTP))
+	mux.HandleFunc(BaseURLPath+"{rippled_method}/", http.HandlerFunc(svc.HandleApiNetHTTP))
 	return mux
 }
 
 func (svc RippleApiService) RouterFast() *fasthttprouter.Router {
 	router := fasthttprouter.New()
-	router.POST("/api/ledger/v1.0/:rippled_method", svc.HandleApiFastHTTP)
-	router.POST("/api/ledger/v1.0/:rippled_method/", svc.HandleApiFastHTTP)
+	router.POST(BaseURLPath+":rippled_method", svc.HandleApiFastHTTP)
+	router.POST(BaseURLPath+":rippled_method/", svc.HandleApiFastHTTP)
 	return router
 }
 
@@ -155,9 +158,15 @@ func main() {
 	svc := RippleApiService{
 		Port:              strconvutil.AtoiOrDefault(os.Getenv("PORT"), 8080),
 		Engine:            stringsutil.TrimSpaceOrDefault(os.Getenv("HTTP_ENGINE"), "nethttp"),
-		DefaultJsonRpcUrl: os.Getenv("RIPPLED_SERVER_JSONRPC_URL")}
+		DefaultJsonRpcUrl: os.Getenv("RIPPLED_SERVER_JSONRPC_URL"),
+		BaseURLPath:       BaseURLPath}
 	fmtutil.PrintJSON(svc)
+	fmt.Printf("TRY it out: %s\n", getCmd())
 
 	httpsimple.Serve(svc)
 	fmt.Println("DONE")
+}
+
+func getCmd() string {
+	return `curl -XPOST http://localhost:8080` + BaseURLPath + `account_channels  -H 'Content-Type: application/json' -d '{"account": "rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH","destination_account": "rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn","ledger_index": "validated"}'`
 }
