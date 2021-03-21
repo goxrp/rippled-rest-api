@@ -1,0 +1,1385 @@
+openapi: 3.0.0
+info:
+  title: Ripple REST API
+  version: '1.0'
+  description: A REST API for the `rippled` server using the Grokify Ripple API Proxy.
+  contact:
+    name: Ripple REST API
+    url: 'http://github.com/grokify/ripple-rest-api'
+servers:
+  - url: 'http://localhost:8080/api/ledger/v1.0'
+tags:
+  - name: Account
+  - name: Ledger
+paths:
+  /account_channels:
+    post:
+      summary: Get Account Channels
+      operationId: account_channels
+      tags:
+        - Account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountChannelsResult'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountChannelsRequestParams'
+            examples:
+              example-1:
+                value:
+                  account: rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH
+                  destination_account: rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
+                  ledger_index: validated
+      description: 'The `account_channels` method returns information about an account''s Payment Channels. This includes only channels where the specified account is the channel''s source, not the destination. (A channel''s "source" and "owner" are the same.) All information retrieved is relative to a particular version of the ledger.'
+  /account_currencies:
+    post:
+      tags:
+        - Account
+      summary: Get Account Currencies
+      operationId: account_currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountCurrenciesResult'
+              examples:
+                example-1:
+                  value:
+                    ledger_index: 11775823
+                    receive_currencies:
+                      - BTC
+                      - CNY
+                      - DYM
+                      - EUR
+                      - JOE
+                      - MXN
+                      - USD
+                      - 015841551A748AD2C1F76FF6ECB0CCCD00000000
+                    send_currencies:
+                      - ASP
+                      - BTC
+                      - CHF
+                      - CNY
+                      - DYM
+                      - EUR
+                      - JOE
+                      - JPY
+                      - MXN
+                      - USD
+                    status: success
+                    validated: true
+      description: 'The `account_currencies` command retrieves a list of currencies that an account can send or receive, based on its trust lines. (This is not a thoroughly confirmed list, but it can be used to populate user interfaces.) [Source](https://github.com/ripple/rippled/blob/master/src/ripple/rpc/handlers/AccountCurrenciesHandler.cpp'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountCurrenciesRequestParams'
+            examples:
+              example-1:
+                value:
+                  account: r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59
+                  account_index: 0
+                  ledger_index: validated
+                  strict: true
+  /account_info:
+    post:
+      summary: Get Account Info
+      operationId: account_info
+      tags:
+        - Account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountInfoResult'
+              examples:
+                example-1:
+                  value:
+                    account_data:
+                      Account: rG1QQv2nh2gr7RCZ1P8YYcBUKCCN633jCn
+                      Balance: '999999999960'
+                      Flags: 8388608
+                      LedgerEntryType: AccountRoot
+                      OwnerCount: 0
+                      PreviousTxnID: 4294BEBE5B569A18C0A2702387C9B1E7146DC3A5850C1E87204951C6FDAA4C42
+                      PreviousTxnLgrSeq: 3
+                      Sequence: 6
+                      index: 92FA6A9FC8EA6018D5D16532D7795C91BFB0831355BDFDA177E86C8BF997985F
+                    ledger_current_index: 4
+                    queue_data:
+                      auth_change_queued: true
+                      highest_sequence: 10
+                      lowest_sequence: 6
+                      max_spend_drops_total: '500'
+                      transactions:
+                        - auth_change: false
+                          fee: '100'
+                          fee_level: '2560'
+                          max_spend_drops: '100'
+                          seq: 6
+                        - LastLedgerSequence: 10
+                          auth_change: true
+                          fee: '100'
+                          fee_level: '2560'
+                          max_spend_drops: '100'
+                          seq: 10
+                      txn_count: 5
+                    validated: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInfoRequestParams'
+            examples:
+              example-1:
+                value:
+                  account: rG1QQv2nh2gr7RCZ1P8YYcBUKCCN633jCn
+                  strict: true
+                  ledger_index: current
+                  queue: true
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AccountInfoRequestParams'
+        description: ''
+      description: 'The `account_info` command retrieves information about an account, its activity, and its XRP balance. All information retrieved is relative to a particular version of the ledger.'
+  /account_lines:
+    post:
+      summary: Get Account Lines
+      operationId: account_lines
+      tags:
+        - Account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountLinesResult'
+      description: 'The `account_lines` method returns information about an account''s trust lines, including balances in all non-XRP currencies and assets. All information retrieved is relative to a particular version of the ledger.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountLinesRequestParams'
+            examples:
+              example-1:
+                value:
+                  account: r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59
+  /account_offers:
+    post:
+      summary: Get Account Offers
+      operationId: account_offers
+      tags:
+        - Account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountOffersResult'
+              examples:
+                example-1:
+                  value:
+                    account: rpP2JgiMyTF5jR5hLG3xHCPi1knBb1v9cM
+                    ledger_current_index: 18539596
+                    offers:
+                      - flags: 0
+                        quality: '0.000000007599140009999998'
+                        seq: 6578020
+                        taker_gets: '29740867287'
+                        taker_pays:
+                          currency: USD
+                          issuer: rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q
+                          value: '226.0050145327418'
+                      - flags: 0
+                        quality: '7.98924700909451e-12'
+                        seq: 6572128
+                        taker_gets: '2361918758'
+                        taker_pays:
+                          currency: XAU
+                          issuer: rrh7rf1gV2pXAoqA8oYbpHd8TKv5ZQeo67
+                          value: '0.01886995237307572'
+                      - flags: 0
+                        quality: '0.00000004059594001318974'
+                        seq: 6576905
+                        taker_gets: '3892952574'
+                        taker_pays:
+                          currency: CNY
+                          issuer: rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+                          value: '158.0380691682966'
+                    status: success
+                    validated: false
+      description: 'The `account_offers` method retrieves a list of [offers](https://xrpl.org/offers.html) made by a given [account](https://xrpl.org/accounts.html) that are outstanding as of a particular [ledger version](https://xrpl.org/ledgers.html).'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountOffersRequestParams'
+            examples:
+              example-1:
+                value:
+                  account: rpP2JgiMyTF5jR5hLG3xHCPi1knBb1v9cM
+  /transaction:
+    post:
+      summary: Get Transaction
+      operationId: transaction
+      tags:
+        - Account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResult'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequestParams'
+            examples:
+              example-1:
+                value:
+                  transaction: C53ECF838647FA5A4C780377025FEC7999AB4182590510CA461444B207AB74A9
+                  binary: false
+      description: |-
+        The `transaction` method retrieves information on a single transaction.
+
+        Caution: This command may successfully find the transaction even if it is included in a ledger outside the range of `min_ledger` to `max_ledger`.
+    parameters: []
+  /ledger:
+    post:
+      summary: Get Ledger Info
+      operationId: ledger
+      tags:
+        - Ledger
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerResult'
+      description: Retrieve information about the public ledger.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerRequestParams'
+  /ledger_closed:
+    post:
+      summary: ''
+      operationId: ledger_closed
+      tags:
+        - Ledger
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerClosedResult'
+      description: The ledger_closed method returns the unique identifiers of the most recently closed ledger. (This ledger is not necessarily validated and immutable yet.)
+  /ledger_current:
+    post:
+      summary: ''
+      operationId: ledger_current
+      tags:
+        - Ledger
+      responses:
+        '200':
+          description: OK
+      description: 'The `ledger_current` method returns the unique identifiers of the current in-progress ledger. This command is mostly useful for testing, because the ledger returned is still in flux.'
+  /ledger_data:
+    post:
+      summary: ''
+      operationId: ledger_data
+      tags:
+        - Ledger
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerDataResult'
+      description: The `ledger_data` method retrieves contents of the specified ledger. You can iterate through several calls to retrieve the entire contents of a single ledger version.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerDataRequestParams'
+components:
+  schemas:
+    AccountChannelsRequestParams:
+      title: AccountChannelsRequest
+      type: object
+      x-examples:
+        example-1:
+          account: rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH
+          destination_account: rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
+          ledger_index: validated
+      properties:
+        account:
+          type: string
+          description: 'The unique identifier of an account, typically the account''s [Address](https://xrpl.org/basic-data-types.html#addresses). The request returns channels where this account is the channel''s owner/source.'
+        destination_account:
+          type: string
+          description: '(Optional) The unique identifier of an account, typically the account''s [Address](https://xrpl.org/basic-data-types.html#addresses). If provided, filter results to payment channels whose destination is this account.'
+        ledger_hash:
+          type: string
+          description: '(Optional) A 20-byte hex string for the ledger version to use. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers))'
+        ledger_index:
+          type: string
+          description: '(Optional) The ledger index of the ledger to use, or a shortcut string to choose a ledger automatically. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers))'
+        limit:
+          type: integer
+          description: (Optional) Limit the number of transactions to retrieve. Cannot be less than 10 or more than 400. The default is 200.
+          minimum: 10
+          maximum: 400
+          default: 200
+    AccountChannelsResult:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          account: rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH
+          channels:
+            - account: rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH
+              amount: '100000000'
+              balance: '1000000'
+              channel_id: 5DB01B7FFED6B67E6B0414DED11E051D2EE2B7619CE0EAA6286D67A3A4D5BDB3
+              destination_account: rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
+              destination_tag: 20170428
+              expiration: 547073182
+              public_key: aB44YfzW24VDEJQ2UuLPV2PvqcPCSoLnL7y5M1EzhdW4LnK5xMS3
+              public_key_hex: 023693F15967AE357D0327974AD46FE3C127113B1110D6044FD41E723689F81CC6
+              settle_delay: 86400
+          ledger_hash: F168208EECDAA57DDAC32780CDD8330FA3E89F0E84D27A9052AA2F88681EBD08
+          ledger_index: 37230642
+          validated: true
+      properties:
+        account:
+          type: string
+          minLength: 1
+        channels:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          description: Payment channels owned by this `account`.
+          items:
+            $ref: '#/components/schemas/Channel'
+        ledger_hash:
+          type: string
+          minLength: 1
+          description: 'The identifying [Hash](https://xrpl.org/basic-data-types.html#hashes) of the ledger version used to generate this response.'
+        ledger_index:
+          type: number
+          description: 'The [Ledger Index](https://xrpl.org/basic-data-types.html#ledger-index) of the ledger version used to generate this response.'
+        validated:
+          type: boolean
+        limit:
+          type: integer
+          description: (May be omitted) The limit to how many channel objects were actually returned by this request.
+        marker:
+          type: object
+          description: (May be omitted) Server-defined value for pagination. Pass this to the next call to resume getting results where this call left off. Omitted when there are no additional pages after this one.
+      required:
+        - account
+        - channels
+        - ledger_hash
+        - ledger_index
+    Channel:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          account: rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH
+          amount: '100000000'
+          balance: '1000000'
+          channel_id: 5DB01B7FFED6B67E6B0414DED11E051D2EE2B7619CE0EAA6286D67A3A4D5BDB3
+          destination_account: rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
+          destination_tag: 20170428
+          expiration: 547073182
+          public_key: aB44YfzW24VDEJQ2UuLPV2PvqcPCSoLnL7y5M1EzhdW4LnK5xMS3
+          public_key_hex: 023693F15967AE357D0327974AD46FE3C127113B1110D6044FD41E723689F81CC6
+          settle_delay: 86400
+      properties:
+        account:
+          type: string
+          minLength: 1
+          description: 'The owner of the channel, as an [Address](https://xrpl.org/basic-data-types.html#addresses).'
+        amount:
+          type: string
+          minLength: 1
+          description: 'The total amount of [XRP, in drops](https://xrpl.org/basic-data-types.html#specifying-currency-amounts) allocated to this channel.'
+        balance:
+          type: string
+          minLength: 1
+          description: 'The total amount of [XRP, in drops](https://xrpl.org/basic-data-types.html#specifying-currency-amounts), paid out from this channel, as of the ledger version used. (You can calculate the amount of XRP left in the channel by subtracting `balance` from `amount`.)'
+        channel_id:
+          type: string
+          minLength: 1
+          description: 'A unique ID for this channel, as a 64-character hexadecimal string. This is also the [ID of the channel object](https://xrpl.org/paychannel.html#paychannel-id-format) in the ledger''s state data.'
+        destination_account:
+          type: string
+          minLength: 1
+        destination_tag:
+          type: number
+        expiration:
+          type: number
+        public_key:
+          type: string
+          minLength: 1
+        public_key_hex:
+          type: string
+          minLength: 1
+        settle_delay:
+          type: number
+    AccountCurrenciesRequestParams:
+      description: ''
+      type: object
+      properties:
+        account:
+          type: string
+          minLength: 1
+        account_index:
+          type: number
+        ledger_index:
+          type: string
+          minLength: 1
+        strict:
+          type: boolean
+      required:
+        - account
+        - account_index
+        - ledger_index
+        - strict
+    AccountCurrenciesResult:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          ledger_index: 11775823
+          receive_currencies:
+            - BTC
+            - CNY
+            - DYM
+            - EUR
+            - JOE
+            - MXN
+            - USD
+            - 015841551A748AD2C1F76FF6ECB0CCCD00000000
+          send_currencies:
+            - ASP
+            - BTC
+            - CHF
+            - CNY
+            - DYM
+            - EUR
+            - JOE
+            - JPY
+            - MXN
+            - USD
+          status: success
+          validated: true
+      properties:
+        ledger_index:
+          type: number
+          description: The ledger index of the ledger version used to retrieve this data.
+        receive_currencies:
+          type: array
+          description: 'Array of [Currency Codes](https://xrpl.org/currency-formats.html#currency-codes) for currencies that this account can receive.'
+          items:
+            type: string
+        send_currencies:
+          type: array
+          description: 'Array of [Currency Codes](https://xrpl.org/currency-formats.html#currency-codes) for currencies that this account can send.'
+          items:
+            type: string
+        status:
+          type: string
+          minLength: 1
+        ledger_hash:
+          type: string
+          description: '(May be omitted) The identifying hash of the ledger version used to retrieve this data, as hex.'
+        validated:
+          type: boolean
+          description: 'If `true`, this data comes from a validated ledger.'
+      required:
+        - ledger_index
+        - status
+    AccountInfoRequestParams:
+      description: ''
+      type: object
+      properties:
+        account:
+          type: string
+          minLength: 1
+          description: 'A unique identifier for the account, most commonly the account''s [Address](https://xrpl.org/basic-data-types.html#addresses).'
+        strict:
+          type: boolean
+          description: '(Optional) If `true`, then the account field only accepts a public key or XRP Ledger address. Otherwise, account can be a secret or passphrase (not recommended). The default is `false`.'
+        ledger_index:
+          type: string
+          minLength: 1
+          description: '(Optional) The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the ledger to use, or a shortcut string to choose a ledger automatically. (See Specifying Ledgers)'
+        queue:
+          type: boolean
+          description: '(Optional) If `true`, and the [Fee Escalation amendment](https://xrpl.org/known-amendments.html#feeescalation) is enabled, also returns stats about queued transactions associated with this account. Can only be used when querying for the data from the current open ledger. New in: rippled 0.33.0.  Not available from servers in [Reporting Mode](https://xrpl.org/rippled-server-modes.html#reporting-mode).'
+        ledger_hash:
+          type: string
+          description: '(Optional) A 20-byte hex string for the ledger version to use. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers))'
+        signer_lists:
+          type: string
+          description: '(Optional) If true, and the [MultiSign amendment](https://xrpl.org/known-amendments.html#multisign) is enabled, also returns any [SignerList objects](https://xrpl.org/signerlist.html) associated with this account. New in: rippled 0.31.0.'
+      required:
+        - account
+    AccountInfoResult:
+      title: AccountInfoResult
+      type: object
+      description: ''
+      properties:
+        account_data:
+          $ref: '#/components/schemas/AccountRoot'
+        ledger_current_index:
+          type: integer
+          description: '(Omitted if `ledger_index` is provided instead) The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the current in-progress ledger, which was used when retrieving this information.'
+        ledger_index:
+          type: integer
+          description: '(Omitted if `ledger_current_index` is provided instead) The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the ledger version used when retrieving this information. The information does not contain any changes from ledger versions newer than this one.'
+        validated:
+          type: boolean
+          description: 'True if this data is from a validated ledger version; if omitted or set to `false`, this data is not final. New in: rippled 0.26.0.'
+        queue_data:
+          $ref: '#/components/schemas/QueueData'
+    AccountRoot:
+      description: 'The `AccountRoot` object type describes a single [account](https://xrpl.org/accounts.html), its settings, and XRP balance.'
+      type: object
+      properties:
+        Account:
+          type: string
+          minLength: 1
+          description: 'The identifying (classic) address of this [account](https://xrpl.org/accounts.html).'
+        AccountTxnID:
+          type: string
+          minLength: 1
+        Balance:
+          type: string
+          minLength: 1
+        Domain:
+          type: string
+          minLength: 1
+        EmailHash:
+          type: string
+          minLength: 1
+        Flags:
+          type: number
+        LedgerEntryType:
+          type: string
+          minLength: 1
+        MessageKey:
+          type: string
+          minLength: 1
+        OwnerCount:
+          type: number
+        PreviousTxnID:
+          type: string
+          minLength: 1
+        PreviousTxnLgrSeq:
+          type: number
+        Sequence:
+          type: number
+        TransferRate:
+          type: integer
+        index:
+          type: string
+          minLength: 1
+        RegularKey:
+          type: string
+        TicketCount:
+          type: integer
+        TickSize:
+          type: integer
+        WalletLocator:
+          type: string
+          description: (Optional) **DEPRECATED**. Do not use.
+          deprecated: true
+        WalletSize:
+          type: integer
+          description: (Optional) **DEPRECATED**. Do not use.
+          deprecated: true
+      required:
+        - Account
+        - Balance
+        - Flags
+        - LedgerEntryType
+        - OwnerCount
+        - PreviousTxnID
+        - PreviousTxnLgrSeq
+        - Sequence
+        - index
+    AccountLinesRequestParams:
+      description: Undefined `marker` property.
+      type: object
+      x-examples:
+        example-1:
+          account: r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59
+      properties:
+        account:
+          type: string
+          minLength: 1
+          description: 'A unique identifier for the account, most commonly the account''s [Address](https://xrpl.org/basic-data-types.html#addresses).'
+        ledger_hash:
+          type: string
+          description: '(Optional) A 20-byte hex string for the ledger version to use. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers))'
+        ledger_index:
+          type: string
+          description: '(Optional) The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the ledger to use, or a shortcut string to choose a ledger automatically. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers))'
+        peer:
+          type: string
+          description: '(Optional) The [Address](https://xrpl.org/basic-data-types.html#addresses) of a second account. If provided, show only lines of trust connecting the two accounts.'
+      required:
+        - account
+    AccountLinesResult:
+      title: AccountLinesResult
+      type: object
+      description: ''
+      properties:
+        account:
+          type: string
+          description: 'Unique [Address](https://xrpl.org/basic-data-types.html#addresses) of the account this request corresponds to. This is the "perspective account" for purpose of the trust lines.'
+        lines:
+          type: array
+          description: 'Array of trust line objects, as described below. If the number of trust lines is large, only returns up to the `limit` at a time.'
+          items:
+            $ref: '#/components/schemas/TrustLine'
+        ledger_current_index:
+          type: integer
+          description: 'Omitted if `ledger_hash` or `ledger_index` provided) The ledger index of the current open ledger, which was used when retrieving this information. New in: rippled 0.26.4-sp1.'
+        ledger_index:
+          type: integer
+          description: '(Omitted if `ledger_current_index` provided instead) The ledger index of the ledger version that was used when retrieving this data. New in: rippled 0.26.4-sp1.'
+        ledger_hash:
+          type: string
+          description: '(May be omitted) The identifying hash the ledger version that was used when retrieving this data. New in: rippled 0.26.4-sp1.'
+        marker:
+          type: object
+    TrustLine:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          account: r3vi7mWxru9rJCxETCyA1CHvzL96eZWx5z
+          balance: '0'
+          currency: ASP
+          limit: '0'
+          limit_peer: '10'
+          quality_in: 0
+          quality_out: 0
+      properties:
+        account:
+          type: string
+          minLength: 1
+          description: 'The unique [Address](https://xrpl.org/basic-data-types.html#addresses) of the counterparty to this trust line.'
+        balance:
+          type: string
+          minLength: 1
+          description: Representation of the numeric balance currently held against this line. A positive balance means that the perspective account holds value; a negative balance means that the perspective account owes value.
+        currency:
+          type: string
+          minLength: 1
+          description: 'A [Currency Code](https://xrpl.org/currency-formats.html#currency-codes) identifying what currency this trust line can hold.'
+        limit:
+          type: string
+          minLength: 1
+          description: The maximum amount of the given currency that this account is willing to owe the peer account
+        limit_peer:
+          type: string
+          minLength: 1
+          description: The maximum amount of currency that the counterparty account is willing to owe the perspective account
+        quality_in:
+          type: integer
+          description: 'Rate at which the account values incoming balances on this trust line, as a ratio of this value per 1 billion units. (For example, a value of 500 million represents a 0.5:1 ratio.) As a special case, 0 is treated as a 1:1 ratio.'
+        quality_out:
+          type: integer
+          description: 'Rate at which the account values outgoing balances on this trust line, as a ratio of this value per 1 billion units. (For example, a value of 500 million represents a 0.5:1 ratio.) As a special case, 0 is treated as a 1:1 ratio.'
+        no_ripple:
+          type: boolean
+          description: '(May be omitted) If `true`, this account has enabled the [No Ripple flag](https://xrpl.org/rippling.html) for this trust line. If present and false, this account has disabled the No Ripple flag, but, because the account also has the Default Ripple flag enabled, that is not considered [the default state](https://xrpl.org/ripplestate.html#contributing-to-the-owner-reserve). If omitted, the account has the No Ripple flag disabled for this trust line and Default Ripple disabled. Updated in: rippled 1.7.0.'
+        no_ripple_peer:
+          type: boolean
+          description: '(May be omitted) If `true`, the peer account has enabled the [No Ripple flag](https://xrpl.org/rippling.html) for this trust line. If present and false, this account has disabled the No Ripple flag, but, because the account also has the Default Ripple flag enabled, that is not considered the [default state](https://xrpl.org/ripplestate.html#contributing-to-the-owner-reserve). If omitted, the account has the No Ripple flag disabled for this trust line and Default Ripple disabled. Updated in: rippled 1.7.0.'
+        authorized:
+          type: boolean
+          description: '(May be omitted) If `true`, this account has [authorized this trust line](https://xrpl.org/authorized-trust-lines.html). The default is `false`.'
+        peer_authorized:
+          type: boolean
+          description: '(May be omitted) If `true`, the peer account has [authorized this trust line](https://xrpl.org/authorized-trust-lines.html). The default is `false`.'
+        freeze:
+          type: boolean
+          description: '(May be omitted) If `true`, this account has [frozen](https://xrpl.org/freezes.html) this trust line. The default is `false`.'
+        freeze_peer:
+          type: boolean
+          description: '(May be omitted) If `true`, the peer account has [frozen](https://xrpl.org/freezes.html) this trust line. The default is `false`.'
+      required:
+        - account
+        - balance
+        - currency
+        - limit
+        - limit_peer
+        - quality_in
+        - quality_out
+    QueueData:
+      description: '(Omitted unless `queue` specified as `true` and querying the current open ledger.) Information about [queued transactions](https://xrpl.org/transaction-cost.html#queued-transactions) sent by this account. This information describes the state of the local rippled server, which may be different from other servers in the [peer-to-peer XRP Ledger network](https://xrpl.org/consensus-network.html). Some fields may be omitted because the values are calculated "lazily" by the queuing mechanism.'
+      type: object
+      properties:
+        auth_change_queued:
+          type: boolean
+        highest_sequence:
+          type: number
+        lowest_sequence:
+          type: number
+        max_spend_drops_total:
+          type: string
+          minLength: 1
+        txn_count:
+          type: number
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueDataTransaction'
+    QueueDataTransaction:
+      description: ''
+      type: object
+      properties:
+        LastLedgerSequence:
+          type: number
+        auth_change:
+          type: boolean
+        fee:
+          type: string
+          minLength: 1
+        fee_level:
+          type: string
+          minLength: 1
+        max_spend_drops:
+          type: string
+          minLength: 1
+        seq:
+          type: number
+    RippleState:
+      title: RippleState
+      type: object
+      description: ''
+      properties:
+        Balance:
+          $ref: '#/components/schemas/Amount'
+        Flags:
+          type: integer
+          description: A bit-map of boolean options enabled for this object.
+          format: uint32
+        LedgerEntryType:
+          type: string
+          description: 'The value `0x0072`, mapped to the string `RippleState`, indicates that this object is a RippleState object.'
+    Amount:
+      description: ''
+      type: object
+      properties:
+        currency:
+          type: string
+          minLength: 1
+        issuer:
+          type: string
+          minLength: 1
+        value:
+          type: string
+          minLength: 1
+      x-examples:
+        example-1:
+          currency: USD
+          issuer: rf1BiGeXwwQoi8Z2ueFYTEXSwuJYfV2Jpn
+          value: '110'
+    AccountOffersRequestParams:
+      description: ''
+      type: object
+      properties:
+        account:
+          type: string
+          minLength: 1
+          description: 'A unique identifier for the account, most commonly the account''s [Address](https://xrpl.org/basic-data-types.html#addresses).'
+        ledger_hash:
+          type: string
+          description: (Optional) A 20-byte hex string identifying the ledger version to use.
+        ledger_index:
+          type: integer
+          description: '(Optional, defaults to `current`) The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the ledger to use, or "current", "closed", or "validated" to select a ledger dynamically. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers)).'
+        limit:
+          type: integer
+          description: '(Optional, default varies) Limit the number of transactions to retrieve. The server is not required to honor this value. Must be within the inclusive range 10 to 400. New in: rippled 0.26.4.'
+          minimum: 10
+          maximum: 400
+        strict:
+          type: boolean
+          description: '(Optional) If `true`, then the `account` field only accepts a public key or XRP Ledger address. Otherwise, `account` can be a secret or passphrase (not recommended). The default is `false`.'
+        marker:
+          type: object
+      required:
+        - account
+    AccountOffersResult:
+      title: AccountOffersResult
+      type: object
+      x-examples:
+        example-1:
+          id: 9
+          status: success
+          type: response
+          result:
+            account: rpP2JgiMyTF5jR5hLG3xHCPi1knBb1v9cM
+            ledger_current_index: 18539550
+            offers:
+              - flags: 0
+                quality: '0.00000000574666765650638'
+                seq: 6577664
+                taker_gets: '33687728098'
+                taker_pays:
+                  currency: EUR
+                  issuer: rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq
+                  value: '193.5921774819578'
+              - flags: 0
+                quality: 7.98924700909451e-12
+                seq: 6572128
+                taker_gets: '2361918758'
+                taker_pays:
+                  currency: XAU
+                  issuer: rrh7rf1gV2pXAoqA8oYbpHd8TKv5ZQeo67
+                  value: '0.01886995237307572'
+            validated: false
+      properties:
+        account:
+          type: string
+          description: 'Unique [Address](https://xrpl.org/basic-data-types.html#addresses) identifying the account that made the offers'
+        offers:
+          type: array
+          description: 'Array of objects, where each object represents an offer made by this account that is outstanding as of the requested ledger version. If the number of offers is large, only returns up to `limit` at a time.'
+          items:
+            $ref: '#/components/schemas/AccountOffer'
+        ledger_current_index:
+          type: integer
+          description: '(Omitted if `ledger_hash` or `ledger_index` provided) The ledger index of the current in-progress ledger version, which was used when retrieving this data. New in: rippled 0.26.4-sp1. '
+        ledger_index:
+          type: integer
+          description: '(Omitted if `ledger_current_index` provided instead) The ledger index of the ledger version that was used when retrieving this data, as requested. New in: rippled 0.26.4-sp1.'
+        ledger_hash:
+          type: string
+          description: '(May be omitted) The identifying hash of the ledger version that was used when retrieving this data. New in: rippled 0.26.4-sp1.'
+    AccountOffer:
+      description: ''
+      type: object
+      properties:
+        flags:
+          type: integer
+          description: Options set for this offer entry as bit-flags.
+        quality:
+          type: string
+          minLength: 1
+          description: 'The exchange rate of the offer, as the ratio of the original `taker_pays` divided by the original `taker_gets`. When executing offers, the offer with the most favorable (lowest) quality is consumed first; offers with the same quality are executed from oldest to newest. New in: rippled 0.29.0.'
+        seq:
+          type: integer
+          description: 'Sequence number of the transaction that created this entry. (Transaction [sequence numbers](https://xrpl.org/basic-data-types.html#account-sequence) are relative to accounts.)'
+        taker_gets:
+          oneOf:
+            - $ref: '#/components/schemas/Amount'
+            - $ref: '#/components/schemas/AmountXRP'
+        taker_pays:
+          oneOf:
+            - $ref: '#/components/schemas/Amount'
+            - $ref: '#/components/schemas/AmountXRP'
+        expiration:
+          type: integer
+          description: '(May be omitted) A time after which this offer is considered unfunded, as the [number of seconds since the Ripple Epoch](https://xrpl.org/basic-data-types.html#specifying-time). See also: [Offer Expiration](https://xrpl.org/offers.html#offer-expiration). New in: rippled 0.30.1.'
+      required:
+        - flags
+        - quality
+        - seq
+    AmountXRP:
+      title: AmountXRP
+      type: string
+    AccountTransactionsResult:
+      title: AccountTransactionsResult
+      type: object
+      properties:
+        id:
+          type: string
+      x-examples:
+        example-1:
+          Account: rhhh49pFH96roGyuC4E5P4CHaNjS1k8gzM
+          Fee: '12'
+          Flags: 0
+          LastLedgerSequence: 56865248
+          OfferSequence: 5037708
+          Sequence: 5037710
+          SigningPubKey: 03B51A3EDF70E4098DA7FB053A01C5A6A0A163A30ED1445F14F87C7C3295FCB3BE
+          TakerGets: '15000000000'
+          TakerPays:
+            currency: CNY
+            issuer: rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+            value: '20160.75'
+          TransactionType: OfferCreate
+          TxnSignature: 3045022100A5023A0E64923616FCDB6D664F569644C7C9D1895772F986CD6B981B515B02A00220530C973E9A8395BC6FE2484948D2751F6B030FC7FB8575D1BFB406368AD554D9
+          date: 648248020
+          hash: C53ECF838647FA5A4C780377025FEC7999AB4182590510CA461444B207AB74A9
+          inLedger: 56865245
+          ledger_index: 56865245
+          meta:
+            AffectedNodes:
+              - ModifiedNode:
+                  FinalFields:
+                    ExchangeRate: 4F04C66806CF7400
+                    Flags: 0
+                    RootIndex: 02BAAC1E67C1CE0E96F0FA2E8061020536CEDD043FEB0FF54F04C66806CF7400
+                    TakerGetsCurrency: '0000000000000000000000000000000000000000'
+                    TakerGetsIssuer: '0000000000000000000000000000000000000000'
+                    TakerPaysCurrency: .inf
+                    TakerPaysIssuer: CED6E99370D5C00EF4EBF72567DA99F5661BFB3A
+                  LedgerEntryType: DirectoryNode
+                  LedgerIndex: 02BAAC1E67C1CE0E96F0FA2E8061020536CEDD043FEB0FF54F04C66806CF7400
+              - ModifiedNode:
+                  FinalFields:
+                    Account: rhhh49pFH96roGyuC4E5P4CHaNjS1k8gzM
+                    Balance: '10404767991'
+                    Flags: 0
+                    OwnerCount: 3
+                    Sequence: 5037711
+                  LedgerEntryType: AccountRoot
+                  LedgerIndex: 1DECD9844E95FFBA273F1B94BA0BF2564DDF69F2804497A6D7837B52050174A2
+                  PreviousFields:
+                    Balance: '10404768003'
+                    Sequence: 5037710
+                  PreviousTxnID: 4DC47B246B5EB9CCE92ABA8C482479E3BF1F946CABBEF74CA4DE36521D5F9008
+                  PreviousTxnLgrSeq: 56865244
+              - DeletedNode:
+                  FinalFields:
+                    Account: rhhh49pFH96roGyuC4E5P4CHaNjS1k8gzM
+                    BookDirectory: 02BAAC1E67C1CE0E96F0FA2E8061020536CEDD043FEB0FF54F04C66806CF7400
+                    BookNode: '0000000000000000'
+                    Flags: 0
+                    OwnerNode: '0000000000000000'
+                    PreviousTxnID: 8F5FF57B404827F12BDA7561876A13C3E3B3095CBF75334DBFB5F227391A660C
+                    PreviousTxnLgrSeq: 56865244
+                    Sequence: 5037708
+                    TakerGets: '15000000000'
+                    TakerPays:
+                      currency: CNY
+                      issuer: rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+                      value: '20160.75'
+                  LedgerEntryType: Offer
+                  LedgerIndex: 26AAE6CA8D29E28A47C92ADF22D5D96A0216F0551E16936856DDC8CB1AAEE93B
+              - ModifiedNode:
+                  FinalFields:
+                    Flags: 0
+                    IndexNext: '0000000000000000'
+                    IndexPrevious: '0000000000000000'
+                    Owner: rhhh49pFH96roGyuC4E5P4CHaNjS1k8gzM
+                    RootIndex: 47FAF5D102D8CE655574F440CDB97AC67C5A11068BB3759E87C2B9745EE94548
+                  LedgerEntryType: DirectoryNode
+                  LedgerIndex: 47FAF5D102D8CE655574F440CDB97AC67C5A11068BB3759E87C2B9745EE94548
+              - CreatedNode:
+                  LedgerEntryType: Offer
+                  LedgerIndex: 8BAEE3C7DE04A568E96007420FA11ABD0BC9AE44D35932BB5640E9C3FB46BC9B
+                  NewFields:
+                    Account: rhhh49pFH96roGyuC4E5P4CHaNjS1k8gzM
+                    BookDirectory: 02BAAC1E67C1CE0E96F0FA2E8061020536CEDD043FEB0FF54F04C66806CF7400
+                    Sequence: 5037710
+                    TakerGets: '15000000000'
+                    TakerPays:
+                      currency: CNY
+                      issuer: rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+                      value: '20160.75'
+            TransactionIndex: 0
+            TransactionResult: tesSUCCESS
+          status: success
+          validated: true
+    TransactionRequestParams:
+      title: TransactionRequestParams
+      type: object
+      x-examples:
+        example-1:
+          transaction: C53ECF838647FA5A4C780377025FEC7999AB4182590510CA461444B207AB74A9
+          binary: false
+      properties:
+        transaction:
+          type: string
+          description: 'The 256-bit hash of the transaction, as hex.'
+        binary:
+          type: boolean
+          description: '(Optional) If `true`, return transaction data and metadata as binary [serialized](https://xrpl.org/serialization.html) to hexadecimal strings. If false, return transaction data and metadata as JSON. The default is `false`.'
+        min_ledger:
+          type: integer
+          description: '(Optional) Use this with `max_ledger` to specify a range of up to 1000 [ledger indexes](https://xrpl.org/basic-data-types.html#ledger-index), starting with this ledger (inclusive). If the server [cannot find the transaction](https://xrpl.org/tx.html#not-found-response), it confirms whether it was able to search all the ledgers in this range. New in: rippled 1.5.0.'
+        max_ledger:
+          type: string
+      required:
+        - transaction
+    TransactionResult:
+      title: TransactionResult
+      type: object
+      properties:
+        hash:
+          type: string
+          description: The SHA-512 hash of the transaction
+        ledger_index:
+          type: integer
+          description: 'The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the ledger that includes this transaction.'
+        validated:
+          type: boolean
+          description: 'True if this data is from a validated ledger version; if omitted or set to false, this data is not final.'
+        meta:
+          type: object
+          description: Various metadata about the transaction.
+        Account:
+          type: string
+          description: '(Required) The unique address of the [account](https://xrpl.org/accounts.html) that initiated the transaction.'
+        TransactionType:
+          type: string
+          description: '(Required) The type of transaction. Valid types include: Payment, OfferCreate, OfferCancel, TrustSet, AccountSet, AccountDelete, SetRegularKey, SignerListSet, EscrowCreate, EscrowFinish, EscrowCancel, PaymentChannelCreate, PaymentChannelFund, PaymentChannelClaim, and DepositPreauth.'
+        Fee:
+          type: string
+          description: '(Required; auto-fillable) Integer amount of XRP, in drops, to be destroyed as a cost for distributing this transaction to the network. Some transaction types have different minimum requirements. See Transaction Cost for details.'
+        Sequence:
+          type: integer
+          description: '(Required; [auto-fillable](https://xrpl.org/transaction-common-fields.html#auto-fillable-fields)) The [sequence number](https://xrpl.org/basic-data-types.html#account-sequence) of the account sending the transaction. A transaction is only valid if the Sequence number is exactly 1 greater than the previous transaction from the same account. The special case 0 means the transaction is using a [Ticket](https://xrpl.org/tickets.html) instead (Requires the [TicketBatch amendment](https://xrpl.org/known-amendments.html#ticketbatch)).'
+        AccountTxnID:
+          type: string
+          description: '(Optional) Hash value identifying another transaction. If provided, this transaction is only valid if the sending account''s previously-sent transaction matches the provided hash.'
+        Flags:
+          type: integer
+          description: (Optional) Set of bit-flags for this transaction.
+        LastLedgerSequence:
+          type: integer
+          description: '(Optional; strongly recommended) Highest ledger index this transaction can appear in. Specifying this field places a strict upper limit on how long the transaction can wait to be validated or rejected. See [Reliable Transaction Submission](https://xrpl.org/reliable-transaction-submission.html) for more details.'
+        Memos:
+          type: array
+          description: (Optional) Additional arbitrary information used to identify this transaction.
+          items:
+            type: object
+        Signers:
+          type: array
+          description: (Optional) Array of objects that represent a multi-signature which authorizes this transaction.
+          items:
+            type: object
+        SourceTag:
+          type: integer
+          description: '(Optional) Arbitrary integer used to identify the reason for this payment, or a sender on whose behalf this transaction is made. Conventionally, a refund should specify the initial payment''s `SourceTag` as the refund payment''s `DestinationTag`.'
+        SigningPubKey:
+          type: string
+          description: '(Automatically added when signing) Hex representation of the public key that corresponds to the private key used to sign this transaction. If an empty string, indicates a multi-signature is present in the Signers field instead.'
+        TicketSequence:
+          type: integer
+          description: '(Optional) The sequence number of the [ticket](https://xrpl.org/tickets.html) to use in place of a `Sequence` number. If this is provided, `Sequence` must be `0`. Cannot be used with `AccountTxnID`.'
+        TxnSignature:
+          type: string
+          description: (Automatically added when signing) The signature that verifies this transaction as originating from the account it says it is from.
+      required:
+        - Account
+        - TransactionType
+        - Fee
+    LedgerRequestParams:
+      description: ''
+      type: object
+      properties:
+        ledger_index:
+          type: string
+          minLength: 1
+        accounts:
+          type: boolean
+        full:
+          type: boolean
+        transactions:
+          type: boolean
+        expand:
+          type: boolean
+        owner_funds:
+          type: boolean
+      required:
+        - ledger_index
+        - accounts
+        - full
+        - transactions
+        - expand
+        - owner_funds
+      x-examples:
+        example-1:
+          ledger_index: string
+          accounts: true
+          full: true
+          transactions: true
+          expand: true
+          owner_funds: true
+    LedgerResult:
+      title: LedgerResult
+      type: object
+      x-examples:
+        example-1:
+          ledger:
+            accepted: true
+            account_hash: B258A8BB4743FB74CBBD6E9F67E4A56C4432EA09E5805E4CC2DA26F2DBE8F3D1
+            close_flags: 0
+            close_time: 638329271
+            close_time_human: '2020-Mar-24 01:41:11.000000000 UTC'
+            close_time_resolution: 10
+            closed: true
+            hash: 3652D7FD0576BC452C0D2E9B747BDD733075971D1A9A1D98125055DEF428721A
+            ledger_hash: 3652D7FD0576BC452C0D2E9B747BDD733075971D1A9A1D98125055DEF428721A
+            ledger_index: '54300940'
+            parent_close_time: 638329270
+            parent_hash: AE996778246BC81F85D5AF051241DAA577C23BCA04C034A7074F93700194520D
+            seqNum: '54300940'
+            totalCoins: '99991024049618156'
+            total_coins: '99991024049618156'
+            transaction_hash: FC6FFCB71B2527DDD630EE5409D38913B4D4C026AA6C3B14A3E9D4ED45CFE30D
+          ledger_hash: 3652D7FD0576BC452C0D2E9B747BDD733075971D1A9A1D98125055DEF428721A
+          ledger_index: 54300940
+          status: success
+          validated: true
+      properties:
+        ledger:
+          type: string
+        ledger_hash:
+          type: string
+        ledger_index:
+          type: integer
+        status:
+          type: string
+        validated:
+          type: boolean
+    Ledger:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          accepted: true
+          account_hash: B258A8BB4743FB74CBBD6E9F67E4A56C4432EA09E5805E4CC2DA26F2DBE8F3D1
+          close_flags: 0
+          close_time: 638329271
+          close_time_human: '2020-Mar-24 01:41:11.000000000 UTC'
+          close_time_resolution: 10
+          closed: true
+          hash: 3652D7FD0576BC452C0D2E9B747BDD733075971D1A9A1D98125055DEF428721A
+          ledger_hash: 3652D7FD0576BC452C0D2E9B747BDD733075971D1A9A1D98125055DEF428721A
+          ledger_index: '54300940'
+          parent_close_time: 638329270
+          parent_hash: AE996778246BC81F85D5AF051241DAA577C23BCA04C034A7074F93700194520D
+          seqNum: '54300940'
+          totalCoins: '99991024049618156'
+          total_coins: '99991024049618156'
+          transaction_hash: FC6FFCB71B2527DDD630EE5409D38913B4D4C026AA6C3B14A3E9D4ED45CFE30D
+      properties:
+        accepted:
+          type: boolean
+        account_hash:
+          type: string
+          minLength: 1
+          description: 'Hash of all account state information in this ledger, as hex'
+        close_flags:
+          type: integer
+          description: 'A bit-map of flags relating to the closing of this ledger. Currently, the ledger has only one flag defined for close_flags: sLCF_NoConsensusTime (value 1). If this flag is enabled, it means that validators were in conflict regarding the correct close time for the ledger, but build otherwise the same ledger, so they declared consensus while "agreeing to disagree" on the close time. In this case, the consensus ledger contains a close_time that is 1 second after that of the previous ledger. (In this case, there is no official close time, but the actual real-world close time is probably 3-6 seconds later than the specified close_time.)'
+        close_time:
+          type: integer
+          description: 'The time this ledger was closed, in [seconds since the Ripple Epoch](https://xrpl.org/basic-data-types.html#specifying-time).'
+        close_time_human:
+          type: string
+          minLength: 1
+          description: 'The time this ledger was closed, in human-readable format. Always uses the UTC time zone. Updated in: rippled 1.5.0.'
+        close_time_resolution:
+          type: integer
+          description: Ledger close times are rounded to within this many seconds.
+        closed:
+          type: boolean
+          description: Whether or not this ledger has been closed
+        hash:
+          type: string
+          minLength: 1
+        ledger_hash:
+          type: string
+          minLength: 1
+          description: Unique identifying hash of the entire ledger.
+        ledger_index:
+          type: string
+          minLength: 1
+          description: 'The Ledger Index of this ledger, as a quoted integer'
+        parent_close_time:
+          description: The time at which the previous ledger was closed.
+          type: integer
+        parent_hash:
+          type: string
+          minLength: 1
+          description: Unique identifying hash of the ledger that came immediately before this one.
+        seqNum:
+          type: string
+          minLength: 1
+        totalCoins:
+          type: string
+          minLength: 1
+        total_coins:
+          type: string
+          minLength: 1
+          description: 'Total number of XRP drops in the network, as a quoted integer. (This decreases as transaction costs destroy XRP.)'
+        transaction_hash:
+          type: string
+          minLength: 1
+          description: 'Hash of the transaction information included in this ledger, as hex'
+      required:
+        - accepted
+        - account_hash
+        - close_flags
+        - close_time
+        - close_time_human
+        - close_time_resolution
+        - closed
+        - hash
+        - ledger_hash
+        - ledger_index
+        - parent_close_time
+        - parent_hash
+        - seqNum
+        - totalCoins
+        - total_coins
+        - transaction_hash
+    LedgerClosedResult:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          ledger_hash: 8B5A0C5F6B198254A6E411AF55C29EE40AA86251D2E78DD0BB17647047FA9C24
+          ledger_index: 8696231
+          status: success
+      properties:
+        ledger_hash:
+          type: string
+          minLength: 1
+          description: 'The unique [Hash](https://xrpl.org/basic-data-types.html#hashes) of this ledger version, in hexadecimal.'
+        ledger_index:
+          type: integer
+          description: 'The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of this ledger version.'
+        status:
+          type: string
+          minLength: 1
+      required:
+        - ledger_hash
+        - ledger_index
+        - status
+    LedgerDataRequestParams:
+      title: LedgerDataRequestParams
+      type: object
+      properties:
+        ledger_hash:
+          type: string
+          description: '(Optional) A 20-byte hex string for the ledger version to use. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers)).'
+        ledger_index:
+          type: string
+          description: '(Optional) The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the ledger to use, or a shortcut string to choose a ledger automatically. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers)).'
+        binary:
+          type: boolean
+          description: '(Optional, defaults to `false`) If set to `true`, return ledger objects as hashed hex strings instead of JSON.'
+        limit:
+          type: integer
+          description: '(Optional, default varies) Limit the number of ledger objects to retrieve. The server is not required to honor this value.'
+        marker:
+          type: object
+          description: Value from a previous paginated response. Resume retrieving data where that response left off.
+      x-examples:
+        example-1:
+          binary: true
+          ledger_hash: 842B57C1CC0613299A686D3E9F310EC0422C84D3911E5056389AA7E5808A93C8
+          limit: 5
+    LedgerDataResult:
+      title: LedgerDataResult
+      type: object
+      x-examples:
+        example-1:
+          ledger_hash: 842B57C1CC0613299A686D3E9F310EC0422C84D3911E5056389AA7E5808A93C8
+          ledger_index: '6885842'
+          marker: 0002A590029B53BE7857EFF9985F770EC792CE483720EB5E963C4D6A607D43DF
+          state:
+            - data: 11006122000000002400000001250062FEA42D0000000055C204A65CF2542946289A3358C67D991B5E135FABFA89F271DBA7A150C08CA0466240000000354540208114C909F42250CFE8F12A7A1A0DFBD3CBD20F32CD79
+              index: 00001A2969BE1FC85F1D7A55282FA2E6D95C71D2E4B9C0FDD3D9994F3C00FF8F
+            - data: 11006F22000000002400000003250035788533000000000000000034000000000000000055555B93628BF3EC318892BB7C7CDCB6732FF53D12B6EEC4FAF60DD1AEE1C6101F501071633D7DE1B6AEB32F87F1A73258B13FC8CC32942D53A66D4F038D7EA4C6800064D4838D7EA4C68000000000000000000000000000425443000000000035DD7DF146893456296BF4061FBE68735D28F3286540000000000F42408114A4B8F5F7B644AEDC3447F9459C132EEB016A133B
+              index: 000037C6659BB98F8D09F2F4CFEB27DE8EFEAFE54DD9E1C13AECDF5794B0C0F5
+            - data: 11006F2200020000240000000A250067395C33000000000000000034000000000000000055A160BC41A45B6BB118DF23D77E4FF23C723431B917F50DCB41319ECC2821F34C5010DFA3B6DDAB58C7E8E5D944E736DA4B7046C30E4F460FD9DE4C1AA535D3D0C00064D554C88B43EFA00000000000000000000000000055534400000000000A20B3C85F482532A9578DBB3950B85CA06594D165400000B59B9F780081148366FB9ACD2A0FD822E31112D2EB6F98C317C2C1
+              index: 0000A8791F78CC9B39200E12A9BDAACCF40A72A512FA815525CFC9BA772990F7
+            - data: 1100612200000000240000000125003E742F2D0000000055286498B513710CFEB2D723A554C7557983D1952DF4DEE342C40DCB43067C9A21624000000306DC42008114225BAB89C4A4B94624BB069D6DB3C819F934991C
+              index: 0000B717320558E2DE1A3B9FDB24E9A695BF05D1A44E4A4683212BB1DD0FBA23
+            - data: 110072220002000025000B65783700000000000000003800000000000000005587591A63051645F37B85D1FBA55EE69B1C96BFF16904F5C99F03FB93D42D03756280000000000000000000000000000000000000004254430000000000000000000000000000000000000000000000000166800000000000000000000000000000000000000042544300000000000A20B3C85F482532A9578DBB3950B85CA06594D167D4C38D7EA4C680000000000000000000000000004254430000000000C795FDF8A637BCAAEDAD1C434033506236C82A2D
+              index: 000103996A3BAD918657F86E12A67D693E8FC8A814DA4B958A244B5F14D93E58
+          status: success
+      properties:
+        ledger_hash:
+          type: string
+        ledger_index:
+          type: string
+        marker:
+          type: string
+        status:
+          type: string
+        state:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerDataState'
+      description: ''
+    LedgerDataState:
+      title: LedgerDataState
+      type: object
+      description: 'When `binary` is set to `false`, additional Ledger object fields are included: https://xrpl.org/ledger-object-types.html'
+      properties:
+        data:
+          type: string
+          description: '(Only included if "binary":true) Hex representation of the requested data'
+        index:
+          type: string
+          description: 'Unique identifier for this ledger entry, as hex.'
+        Account:
+          type: string
+        Balance:
+          type: string
+        Flags:
+          type: integer
+        LedgerEntryType:
+          type: string
+          description: '(Only included if `"binary":false`) String indicating what type of ledger object this object represents. See [ledger object types](https://xrpl.org/ledger-object-types.html) for the full list.'
+        OwnerCount:
+          type: integer
+        PreviousTxnID:
+          type: string
+        PreviousTxnLgrSeq:
+          type: integer
+        Sequence:
+          type: integer
+      x-examples:
+        example-1:
+          ledger_hash: 842B57C1CC0613299A686D3E9F310EC0422C84D3911E5056389AA7E5808A93C8
+          ledger_index: '6885842'
+          marker: 0002A590029B53BE7857EFF9985F770EC792CE483720EB5E963C4D6A607D43DF
+          state:
+            - data: 11006122000000002400000001250062FEA42D0000000055C204A65CF2542946289A3358C67D991B5E135FABFA89F271DBA7A150C08CA0466240000000354540208114C909F42250CFE8F12A7A1A0DFBD3CBD20F32CD79
+              index: 00001A2969BE1FC85F1D7A55282FA2E6D95C71D2E4B9C0FDD3D9994F3C00FF8F
+            - data: 11006F22000000002400000003250035788533000000000000000034000000000000000055555B93628BF3EC318892BB7C7CDCB6732FF53D12B6EEC4FAF60DD1AEE1C6101F501071633D7DE1B6AEB32F87F1A73258B13FC8CC32942D53A66D4F038D7EA4C6800064D4838D7EA4C68000000000000000000000000000425443000000000035DD7DF146893456296BF4061FBE68735D28F3286540000000000F42408114A4B8F5F7B644AEDC3447F9459C132EEB016A133B
+              index: 000037C6659BB98F8D09F2F4CFEB27DE8EFEAFE54DD9E1C13AECDF5794B0C0F5
+            - data: 11006F2200020000240000000A250067395C33000000000000000034000000000000000055A160BC41A45B6BB118DF23D77E4FF23C723431B917F50DCB41319ECC2821F34C5010DFA3B6DDAB58C7E8E5D944E736DA4B7046C30E4F460FD9DE4C1AA535D3D0C00064D554C88B43EFA00000000000000000000000000055534400000000000A20B3C85F482532A9578DBB3950B85CA06594D165400000B59B9F780081148366FB9ACD2A0FD822E31112D2EB6F98C317C2C1
+              index: 0000A8791F78CC9B39200E12A9BDAACCF40A72A512FA815525CFC9BA772990F7
+            - data: 1100612200000000240000000125003E742F2D0000000055286498B513710CFEB2D723A554C7557983D1952DF4DEE342C40DCB43067C9A21624000000306DC42008114225BAB89C4A4B94624BB069D6DB3C819F934991C
+              index: 0000B717320558E2DE1A3B9FDB24E9A695BF05D1A44E4A4683212BB1DD0FBA23
+            - data: 110072220002000025000B65783700000000000000003800000000000000005587591A63051645F37B85D1FBA55EE69B1C96BFF16904F5C99F03FB93D42D03756280000000000000000000000000000000000000004254430000000000000000000000000000000000000000000000000166800000000000000000000000000000000000000042544300000000000A20B3C85F482532A9578DBB3950B85CA06594D167D4C38D7EA4C680000000000000000000000000004254430000000000C795FDF8A637BCAAEDAD1C434033506236C82A2D
+              index: 000103996A3BAD918657F86E12A67D693E8FC8A814DA4B958A244B5F14D93E58
+          status: success
