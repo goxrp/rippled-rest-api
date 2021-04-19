@@ -1,0 +1,15 @@
+site_name: XRP Ledger API Developer Guide
+site_url: https://github.com/grokify/ripple-rest-api
+repo_url: https://github.com/grokify/ripple-rest-api
+docs_dir: docs
+theme: readthedocs
+pages:
+# Getting Started:
+- ['index.md', 'Getting Started']
+
+## Ledger Methods:
+- ['ledger_overview.md', 'Ledger APIs', 'Getting Started']
+- ['ledger.md', 'Ledger APIs', 'Ledger Info API']
+- ['ledger_closed.md', 'Ledger APIs', 'Closed Ledger API']
+- ['ledger_current.md', 'Ledger APIs', 'Current Ledger API']
+- ['ledger_data.md', 'Ledger APIs', 'Ledger Data API']
