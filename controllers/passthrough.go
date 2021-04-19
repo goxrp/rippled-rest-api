@@ -58,7 +58,8 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 		case MethodLedgerCurrent:
 			svc.HandleGetNoParamsAnyEngine(aRes, aReq)
 		case MethodLedgerData:
-			svc.HandleLedgerDataAnyEngine(aRes, aReq)
+			svc.HandleGetWithParamsAnyEngine(aRes, aReq, &LedgerDataRequest{})
+			//svc.HandleLedgerDataAnyEngine(aRes, aReq)
 		}
 		return
 	}

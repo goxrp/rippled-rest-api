@@ -50,7 +50,7 @@ func (svc *RippleApiService) HandleGetWithParamsAnyEngine(aRes anyhttp.Response,
 	//reqData := LedgerRequest{}
 	qryArgs := aReq.QueryArgs()
 
-	err = decoder.Decode(&reqParams, qryArgs.GetURLValues())
+	err = decoder.Decode(reqParams, qryArgs.GetURLValues())
 	if err != nil {
 		aRes.SetStatusCode(400)
 		return
