@@ -12,6 +12,7 @@ import (
 	"github.com/grokify/simplego/net/anyhttp"
 	"github.com/grokify/simplego/net/http/httpsimple"
 	"github.com/grokify/simplego/net/httputilmore"
+	"github.com/grokify/simplego/type/stringsutil"
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
 
@@ -19,9 +20,15 @@ import (
 )
 
 const (
+	MethodLedger        = "ledger"
+	MethodLedgerClosed  = "ledger_closed"
 	MethodLedgerCurrent = "ledger_current"
 	MethodLedgerData    = "ledger_data"
 )
+
+type RequestJsonRpc struct {
+	Method string `json:"method"`
+}
 
 func (svc *RippleApiService) HandleApiNetHTTP(res http.ResponseWriter, req *http.Request) {
 	log.Info().Msg("FUNC_HandleNetHTTP__BEGIN")
@@ -44,8 +51,12 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 
 	if httpMethod == http.MethodGet {
 		switch xrplMethod {
+		case MethodLedger:
+			svc.HandleGetWithParamsAnyEngine(aRes, aReq, &LedgerRequest{})
+		case MethodLedgerClosed:
+			svc.HandleGetNoParamsAnyEngine(aRes, aReq)
 		case MethodLedgerCurrent:
-			svc.HandleLedgerCurrentAnyEngine(aRes, aReq)
+			svc.HandleGetNoParamsAnyEngine(aRes, aReq)
 		case MethodLedgerData:
 			svc.HandleLedgerDataAnyEngine(aRes, aReq)
 		}
@@ -104,6 +115,27 @@ func ProxyApiCall(jrpcURL, rippledMethod string, paramsBodyBytes []byte) (*http.
 		Method: http.MethodPost,
 		Body:   jrpcReq,
 		IsJSON: true})
+}
+
+func (svc *RippleApiService) HandleGetNoParamsAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
+	log.Info().Msg("FUNC_HandleLedgerCurrentAnyEngine__BEGIN")
+
+	proxyResp, err := ProxyApiCall(
+		stringsutil.FirstNotEmptyTrimSpace(
+			aReq.QueryArgs().GetString("jrpcURL"),
+			os.Getenv("JSON_RPC_URL"),
+			ripplenetwork.GetMainnetPublicJsonRpcUrl()),
+		strings.ToLower(strings.TrimSpace(aReq.RequestURIVar("rippled_method"))),
+		[]byte{})
+
+	if err == nil {
+		respBodyBytes, err := ioutil.ReadAll(proxyResp.Body)
+		if err == nil {
+			// Content-Type: text/plain; charset=utf-8
+			aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
+			aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
+		}
+	}
 }
 
 /*
