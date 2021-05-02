@@ -8,6 +8,7 @@ require (
 	github.com/buaazp/fasthttprouter v0.1.1
 	github.com/getkin/kin-openapi v0.61.0
 	github.com/go-openapi/swag v0.19.15 // indirect
+	github.com/go-xrp/go-rippled v0.0.2 // indirect
 	github.com/go-xrp/ripple-network v0.0.2
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/schema v1.2.0

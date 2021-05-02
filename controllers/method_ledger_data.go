@@ -12,6 +12,7 @@ import (
 	"github.com/grokify/simplego/net/httputilmore"
 	"github.com/rs/zerolog/log"
 
+	gorippled "github.com/go-xrp/go-rippled"
 	ripplenetwork "github.com/go-xrp/ripple-network"
 )
 
@@ -70,7 +71,7 @@ func (svc *RippleApiService) HandleLedgerDataAnyEngine(aRes anyhttp.Response, aR
 		}
 		log.Info().Str("jsonRpcRemoteURL", jrpcURL)
 
-		proxyResp, err := ProxyApiCall(jrpcURL, method, rippledParamsBytes)
+		proxyResp, err := gorippled.DoApiJsonRpcSplit(jrpcURL, method, rippledParamsBytes)
 		if err == nil {
 			respBodyBytes, err := ioutil.ReadAll(proxyResp.Body)
 			if err == nil {

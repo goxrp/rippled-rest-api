@@ -1,21 +1,19 @@
 package controllers
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/grokify/simplego/encoding/jsonutil"
-	"github.com/grokify/simplego/fmt/fmtutil"
 	"github.com/grokify/simplego/net/anyhttp"
-	"github.com/grokify/simplego/net/http/httpsimple"
 	"github.com/grokify/simplego/net/httputilmore"
 	"github.com/grokify/simplego/type/stringsutil"
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
 
+	gorippled "github.com/go-xrp/go-rippled"
 	ripplenetwork "github.com/go-xrp/ripple-network"
 )
 
@@ -80,7 +78,7 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 		}
 		log.Info().Str("jsonRpcRemoteURL", jrpcURL)
 
-		resp, err := ProxyApiCall(jrpcURL, xrplMethod, bodyBytes)
+		resp, err := gorippled.DoApiJsonRpcSplit(jrpcURL, xrplMethod, bodyBytes)
 
 		if err == nil {
 			respBodyBytes, err := ioutil.ReadAll(resp.Body)
@@ -93,35 +91,10 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 	}
 }
 
-func ProxyApiCall(jrpcURL, rippledMethod string, paramsBodyBytes []byte) (*http.Response, error) {
-	log.Info().Str("method", rippledMethod)
-	jrpcReq := JsonRpcRequest{Method: rippledMethod}
-
-	if len(paramsBodyBytes) > 0 {
-		msi := map[string]interface{}{}
-		err := json.Unmarshal(paramsBodyBytes, &msi)
-		if err == nil {
-			jrpcReq.Params = []map[string]interface{}{msi}
-			fmtutil.PrintJSON(jrpcReq)
-		}
-	}
-
-	if len(jrpcURL) == 0 {
-		jrpcURL = ripplenetwork.GetMainnetPublicJsonRpcUrl()
-	}
-	log.Info().Str("jsonRpcRemoteURL", jrpcURL)
-
-	sc := httpsimple.NewSimpleClient(nil, jrpcURL)
-	return sc.Do(httpsimple.SimpleRequest{
-		Method: http.MethodPost,
-		Body:   jrpcReq,
-		IsJSON: true})
-}
-
 func (svc *RippleApiService) HandleGetNoParamsAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
 	log.Info().Msg("FUNC_HandleLedgerCurrentAnyEngine__BEGIN")
 
-	proxyResp, err := ProxyApiCall(
+	proxyResp, err := gorippled.DoApiJsonRpcSplit(
 		stringsutil.FirstNotEmptyTrimSpace(
 			aReq.QueryArgs().GetString("jrpcURL"),
 			os.Getenv("JSON_RPC_URL"),

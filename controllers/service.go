@@ -39,11 +39,6 @@ func (svc *RippleApiService) HandleApiInfoAnyEngine(aRes anyhttp.Response, aReq 
 	aRes.SetBodyBytes(bytes)
 }
 
-type JsonRpcRequest struct {
-	Method string                   `json:"method"`
-	Params []map[string]interface{} `json:"params"`
-}
-
 type RippleApiService struct {
 	Port              int
 	Engine            string

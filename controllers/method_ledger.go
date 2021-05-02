@@ -13,6 +13,7 @@ import (
 	"github.com/grokify/simplego/type/stringsutil"
 	"github.com/rs/zerolog/log"
 
+	gorippled "github.com/go-xrp/go-rippled"
 	ripplenetwork "github.com/go-xrp/ripple-network"
 )
 
@@ -62,7 +63,7 @@ func (svc *RippleApiService) HandleGetWithParamsAnyEngine(aRes anyhttp.Response,
 		return
 	}
 
-	proxyResp, err := ProxyApiCall(
+	proxyResp, err := gorippled.DoApiJsonRpcSplit(
 		stringsutil.FirstNotEmptyTrimSpace(
 			aReq.QueryArgs().GetString("jrpcURL"),
 			os.Getenv("JSON_RPC_URL"),
