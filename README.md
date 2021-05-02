@@ -84,11 +84,11 @@ POST /api/account_info
 }
 ```
 
- [build-status-svg]: https://github.com/wecoinshq/ripple-api/workflows/go%20build/badge.svg?branch=master
- [build-status-url]: https://github.com/wecoinshq/ripple-api/actions
- [goreport-svg]: https://goreportcard.com/badge/github.com/wecoinshq/ripple-api
- [goreport-url]: https://goreportcard.com/report/github.com/wecoinshq/ripple-api
- [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/wecoinshq/ripple-api
- [docs-godoc-url]: https://pkg.go.dev/github.com/wecoinshq/ripple-api
+ [build-status-svg]: https://github.com/go-xrp/ripple-rest-api/workflows/go%20build/badge.svg?branch=master
+ [build-status-url]: https://github.com/go-xrp/ripple-rest-api/actions
+ [goreport-svg]: https://goreportcard.com/badge/github.com/go-xrp/ripple-rest-api
+ [goreport-url]: https://goreportcard.com/report/github.com/go-xrp/ripple-rest-api
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/go-xrp/ripple-rest-api
+ [docs-godoc-url]: https://pkg.go.dev/github.com/go-xrp/ripple-rest-api
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
- [license-url]: https://github.com/wecoinshq/ripple-api/blob/master/LICENSE
+ [license-url]: https://github.com/go-xrp/ripple-rest-api/blob/master/LICENSE
