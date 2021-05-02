@@ -13,7 +13,7 @@ import (
 	"github.com/grokify/simplego/type/stringsutil"
 	"github.com/rs/zerolog/log"
 
-	ripplenetwork "github.com/wecoinshq/ripple-network"
+	ripplenetwork "github.com/go-xrp/ripple-network"
 )
 
 type LedgerRequest struct {

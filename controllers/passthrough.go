@@ -16,7 +16,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
 
-	ripplenetwork "github.com/wecoinshq/ripple-network"
+	ripplenetwork "github.com/go-xrp/ripple-network"
 )
 
 const (

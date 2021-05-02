@@ -12,7 +12,7 @@ import (
 	"github.com/grokify/simplego/net/httputilmore"
 	"github.com/rs/zerolog/log"
 
-	ripplenetwork "github.com/wecoinshq/ripple-network"
+	ripplenetwork "github.com/go-xrp/ripple-network"
 )
 
 type LedgerDataRequest struct {
