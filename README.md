@@ -108,6 +108,10 @@ POST /api/account_info
 }
 ```
 
+## Credits
+
+Heroku support provided via [`github.com/grokify/goheroku`](https://github.com/grokify/goheroku).
+
  [build-status-svg]: https://github.com/goxrp/rippled-rest-api/workflows/go%20build/badge.svg?branch=master
  [build-status-url]: https://github.com/goxrp/rippled-rest-api/actions
  [goreport-svg]: https://goreportcard.com/badge/github.com/goxrp/rippled-rest-api
