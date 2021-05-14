@@ -8,13 +8,18 @@
 
 Rippled REST API provides a REST-like API proxy for the [`rippled` server](https://github.com/ripple/rippled). It is more REST-like than the existing interfaces and should be easier to use for those with REST API experience, while remaining close enough to the [`rippled` server's API](https://xrpl.org/rippled-api.html) to ensure maintenance, support and documenation should be eaiser than if a larger change was introduced.
 
+It can run as any of the following:
+
+1. Server using `net/http` or `fasthttp`
+2. AWS Lambda function behind AWS API Gateway
+3. Heroku server
+
 ## Installation
 
-Rippled REST API can run as a stand-alone server using `net/http` or `fasthttp`. It can also run on AWS Lambda behind an AWS API Gateway Proxy. This is set by setting the `HTTP_ENGINE` environment variable to one of `nethttp`, `fasthttp` or `awslambda`.
+### Environment Variables
 
-1. Server
-2. AWS Lambda
-3. Heroku
+1. `HTTP_ENGINE`: set to `nethttp`, `fasthttp` or `awslambda`.
+2. `PORT`: TCP port to listen on
 
 ### Server
 
