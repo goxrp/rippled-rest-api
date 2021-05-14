@@ -6,11 +6,11 @@
 [![License][license-svg]][license-url]
 [![Heroku][heroku-svg]][heroku-url]
 
-Ripple API provides a REST-like API proxy for the [`rippled` server](https://github.com/ripple/rippled). It is more REST-like than the existing interfaces and should be easier to use for those with REST API experience, while remaining close enough to the [`rippled` server's API](https://xrpl.org/rippled-api.html) to ensure maintenance, support and documenation should be eaiser than if a larger change was introduced.
+Rippled REST API provides a REST-like API proxy for the [`rippled` server](https://github.com/ripple/rippled). It is more REST-like than the existing interfaces and should be easier to use for those with REST API experience, while remaining close enough to the [`rippled` server's API](https://xrpl.org/rippled-api.html) to ensure maintenance, support and documenation should be eaiser than if a larger change was introduced.
 
 ## Installation
 
-Ripple API can run as a stand-alone server using `net/http` or `fasthttp`. It can also run on AWS Lambda behind an AWS API Gateway Proxy. This is set by setting the `HTTP_ENGINE` environment variable to one of `nethttp`, `fasthttp` or `awslambda`.
+Rippled REST API can run as a stand-alone server using `net/http` or `fasthttp`. It can also run on AWS Lambda behind an AWS API Gateway Proxy. This is set by setting the `HTTP_ENGINE` environment variable to one of `nethttp`, `fasthttp` or `awslambda`.
 
 1. Server
 2. AWS Lambda
@@ -108,13 +108,13 @@ POST /api/account_info
 }
 ```
 
- [build-status-svg]: https://github.com/goxrp/ripple-rest-api/workflows/go%20build/badge.svg?branch=master
- [build-status-url]: https://github.com/goxrp/ripple-rest-api/actions
- [goreport-svg]: https://goreportcard.com/badge/github.com/goxrp/ripple-rest-api
- [goreport-url]: https://goreportcard.com/report/github.com/goxrp/ripple-rest-api
- [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/goxrp/ripple-rest-api
- [docs-godoc-url]: https://pkg.go.dev/github.com/goxrp/ripple-rest-api
+ [build-status-svg]: https://github.com/goxrp/rippled-rest-api/workflows/go%20build/badge.svg?branch=master
+ [build-status-url]: https://github.com/goxrp/rippled-rest-api/actions
+ [goreport-svg]: https://goreportcard.com/badge/github.com/goxrp/rippled-rest-api
+ [goreport-url]: https://goreportcard.com/report/github.com/goxrp/rippled-rest-api
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/goxrp/rippled-rest-api
+ [docs-godoc-url]: https://pkg.go.dev/github.com/goxrp/rippled-rest-api
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
- [license-url]: https://github.com/goxrp/ripple-rest-api/blob/master/LICENSE
+ [license-url]: https://github.com/goxrp/rippled-rest-api/blob/master/LICENSE
  [heroku-svg]: https://img.shields.io/badge/%E2%86%91_deploy-Heroku-7056bf.svg?style=flat
  [heroku-url]: https://heroku.com/deploy
