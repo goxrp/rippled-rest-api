@@ -1,0 +1,35 @@
+{
+	"name": "Rippled REST",
+	"description": "Rippled REST API Proxy",
+	"keywords": [
+		"rippled"
+	],
+	"website": "https://github.com/goxrp/rippled-rest",
+	"repository": "https://github.com/goxrp/rippled-rest",
+	"addons": [
+		"papertrail:choklad"
+	],
+	"formation": {
+		"web": {
+			"quantity": 1,
+			"size": "Free"
+		}
+	},
+	"env": {
+		"RIPPLED_JSONRPC_URL": {
+			"description": "Rippled server to connect to.",
+			"value": "https://xrpl.ws/",
+			"required": true
+		},
+		"API_TOKENS": {
+			"description": "Comma-delimited list of secret tokens for validation",
+			"default": "demo account - do not use for production",
+			"required": false
+		},
+		"HTTP_ENGINE": {
+			"description": "HTTP server engine to use, e.g. 'fasthttp' or 'nethttp'.",
+			"value": "fasthttp",
+			"required": false
+		}
+	}
+}

@@ -4,6 +4,7 @@
 [![Go Report Card][goreport-svg]][goreport-url]
 [![Docs][docs-godoc-svg]][docs-godoc-url]
 [![License][license-svg]][license-url]
+[![Heroku][heroku-svg]][heroku-url]
 
 Ripple API provides a REST-like API proxy for the [`rippled` server](https://github.com/ripple/rippled). It is more REST-like than the existing interfaces and should be easier to use for those with REST API experience, while remaining close enough to the [`rippled` server's API](https://xrpl.org/rippled-api.html) to ensure maintenance, support and documenation should be eaiser than if a larger change was introduced.
 
@@ -92,3 +93,5 @@ POST /api/account_info
  [docs-godoc-url]: https://pkg.go.dev/github.com/goxrp/ripple-rest-api
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
  [license-url]: https://github.com/goxrp/ripple-rest-api/blob/master/LICENSE
+ [heroku-svg]: https://img.shields.io/badge/%E2%86%91_deploy-Heroku-7056bf.svg?style=flat
+ [heroku-url]: https://heroku.com/deploy
