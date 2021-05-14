@@ -14,6 +14,10 @@ It can run as any of the following:
 2. AWS Lambda function behind AWS API Gateway
 3. Heroku server
 
+A test server is available at:
+
+https://rippled-rest-api.herokuapp.com 
+
 ## Installation
 
 ### Environment Variables
@@ -45,16 +49,14 @@ $ git push heroku master
 $ heroku open
 ```
 
+Heroku will automatically set the `PORT` environment variable.
+
 ### Testing
 
 Test with:
 
 * `curl -XGET 'https://{gatewayId}.execute-api.{awsZone}.amazonaws.com/{stage}/api'`
 * `curl -XPOST 'https://{gatewayId}.execute-api.{awsZone}.amazonaws.com/{stage}/api/v1/account_info' -H 'Content-Type: application/json' -d @docs/examples/endpoint_account_info_request.json`
-
-## Heroku
-
-Heroku relies on the `PORT` environment variable.
 
 ## API Spec
 
