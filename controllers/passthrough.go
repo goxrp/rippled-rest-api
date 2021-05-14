@@ -13,8 +13,8 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
 
-	gorippled "github.com/go-xrp/go-rippled"
-	ripplenetwork "github.com/go-xrp/ripple-network"
+	gorippled "github.com/goxrp/go-rippled"
+	ripplenetwork "github.com/goxrp/ripple-network"
 )
 
 const (
@@ -46,21 +46,6 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 		Str("httpMethod", httpMethod).
 		Str("xrplMethod", xrplMethod).
 		Msg("FUNC_HandleAnyEngine__BEGIN")
-
-	if httpMethod == http.MethodGet {
-		switch xrplMethod {
-		case MethodLedger:
-			svc.HandleGetWithParamsAnyEngine(aRes, aReq, &LedgerRequest{})
-		case MethodLedgerClosed:
-			svc.HandleGetNoParamsAnyEngine(aRes, aReq)
-		case MethodLedgerCurrent:
-			svc.HandleGetNoParamsAnyEngine(aRes, aReq)
-		case MethodLedgerData:
-			svc.HandleGetWithParamsAnyEngine(aRes, aReq, &LedgerDataRequest{})
-			//svc.HandleLedgerDataAnyEngine(aRes, aReq)
-		}
-		return
-	}
 
 	bodyBytes, err := aReq.PostBody()
 	if err == nil {

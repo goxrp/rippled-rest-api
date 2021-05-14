@@ -9,7 +9,7 @@ import (
 	"github.com/grokify/simplego/strconv/strconvutil"
 	"github.com/grokify/simplego/type/stringsutil"
 
-	"github.com/go-xrp/ripple-rest-api/controllers"
+	"github.com/goxrp/rippled-rest-api/controllers"
 )
 
 func main() {
