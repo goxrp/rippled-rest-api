@@ -110,7 +110,7 @@ POST /api/account_info
 
 ## Credits
 
-Heroku support provided via [`github.com/grokify/goheroku`](https://github.com/grokify/goheroku).
+1. Heroku support provided via [`github.com/grokify/goheroku`](https://github.com/grokify/goheroku).
 
  [build-status-svg]: https://github.com/goxrp/rippled-rest-api/workflows/go%20build/badge.svg?branch=master
  [build-status-url]: https://github.com/goxrp/rippled-rest-api/actions
