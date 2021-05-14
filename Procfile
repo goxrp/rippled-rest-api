@@ -1,1 +1,1 @@
-web: rippledrest
+web: rippled-rest-api

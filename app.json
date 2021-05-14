@@ -4,8 +4,8 @@
 	"keywords": [
 		"rippled"
 	],
-	"website": "https://github.com/goxrp/rippled-rest",
-	"repository": "https://github.com/goxrp/rippled-rest",
+	"website": "https://github.com/goxrp/rippled-rest-api",
+	"repository": "https://github.com/goxrp/rippled-rest-api",
 	"addons": [
 		"papertrail:choklad"
 	],
