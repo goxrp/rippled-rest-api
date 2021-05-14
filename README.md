@@ -12,9 +12,16 @@ Ripple API provides a REST-like API proxy for the [`rippled` server](https://git
 
 Ripple API can run as a stand-alone server using `net/http` or `fasthttp`. It can also run on AWS Lambda behind an AWS API Gateway Proxy. This is set by setting the `HTTP_ENGINE` environment variable to one of `nethttp`, `fasthttp` or `awslambda`.
 
-1. Stand-alone server
+1. Server
 2. AWS Lambda
 3. Heroku
+
+### Server
+
+```
+$ go get github.com/goxrp/rippled-rest-api
+$ rippled-rest-api
+```
 
 ### AWS Lambda
 
