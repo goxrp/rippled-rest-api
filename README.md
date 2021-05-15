@@ -4,6 +4,7 @@
 [![Go Report Card][goreport-svg]][goreport-url]
 [![Docs][docs-godoc-svg]][docs-godoc-url]
 [![License][license-svg]][license-url]
+[![Swagger UI][swaggerui-svg]][swaggerui-url]
 [![Heroku][heroku-svg]][heroku-url]
 
 Rippled REST API provides a REST-like API proxy for the [`rippled` server](https://github.com/ripple/rippled). It is more REST-like than the existing interfaces and should be easier to use for those with REST API experience, while remaining close enough to the [`rippled` server's API](https://xrpl.org/rippled-api.html) to ensure maintenance, support and documenation should be eaiser than if a larger change was introduced.
@@ -129,3 +130,5 @@ POST /api/account_info
  [license-url]: https://github.com/goxrp/rippled-rest-api/blob/master/LICENSE
  [heroku-svg]: https://img.shields.io/badge/%E2%86%91_deploy-Heroku-7056bf.svg?style=flat
  [heroku-url]: https://heroku.com/deploy
+ [swaggerui-svg]: https://shields.io/badge/Swagger%20UI-OpenAPI%203-blue?logo=swagger
+ [swaggerui-url]: https://goxrp.github.io/rippled-rest-api/api-explorer/
