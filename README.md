@@ -11,7 +11,9 @@ Rippled REST API provides a REST-like API proxy for the [`rippled` server](https
 
 A primary design goal of Rippled REST API is to support the OpenAPI Specification.
 
-Providing a a REST-like interface to Rippled requires thoughtful API design. Increasing REST-likeness will be introduced in several phases with different versions of the Rippled REST API will have design guidelines for that version.
+> Note, if you just want to use Postman, see the [`rippled-postman`](https://github.com/goxrp/rippled-postman) Postman Collection which can connect to rippled servers directly.
+
+Providing a a REST-like interface to Rippled requires thoughtful API design. Increasing REST-likeness will be introduced in several phases with  different versions of the Rippled REST API will have design guidelines for that version.
 
 It can run as any of the following:
 
