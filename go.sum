@@ -75,8 +75,9 @@ github.com/goxrp/ripple-network v0.0.3 h1:VrBZ6y3aDeixn9NDyKhLknaTTRI5g3nyd4dAfn
 github.com/goxrp/ripple-network v0.0.3/go.mod h1:IxpkAMRLiCLIkg3dL2H20H4IKW4vYKomWuNBF392kX8=
 github.com/grokify/base36 v1.0.2/go.mod h1:A0Pzze8AN96L1APGKrZu4Qtuyvcf3tf4oQZfGbdhMPc=
 github.com/grokify/bitcoinmath v0.0.0-20171208015713-6ef5b53bef73/go.mod h1:FrFkuJ9mhcBuUZBBN5m3J5ihG6cvRsiBHwSXO15kOPc=
-github.com/grokify/simplego v0.26.2 h1:WZmtsBGNlsnfz+ndQPLIfGC00bZtD8ToGt28ZHx2UA8=
 github.com/grokify/simplego v0.26.2/go.mod h1:B24I7pmy89MLOQ2ySaigcsrNEe+DXK7opD2LMK2LJeg=
+github.com/grokify/simplego v0.26.3 h1:h2xIyMXBY/R1L4BcyAFC5ifZMcatkQMvsSoQqkHt1io=
+github.com/grokify/simplego v0.26.3/go.mod h1:B24I7pmy89MLOQ2ySaigcsrNEe+DXK7opD2LMK2LJeg=
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
 github.com/huandu/xstrings v1.3.2 h1:L18LIDzqlW6xN2rEkpdV8+oL/IXWJ1APd+vsdYy4Wdw=
 github.com/huandu/xstrings v1.3.2/go.mod h1:y5/lhBue+AyNmUVz9RLU9xbLR0o4KIIExikq4ovT0aE=

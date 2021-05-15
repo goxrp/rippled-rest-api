@@ -68,7 +68,7 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 		if err == nil {
 			respBodyBytes, err := ioutil.ReadAll(resp.Body)
 			if err == nil {
-				// Content-Type: text/plain; charset=utf-8
+				aRes.SetHeader(httputilmore.HeaderAccessControlAllowOrigin, "*")
 				aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
 				aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
 			}
