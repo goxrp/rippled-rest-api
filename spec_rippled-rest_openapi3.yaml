@@ -7,7 +7,7 @@ info:
     name: Ripple REST API
     url: 'http://github.com/grokify/ripple-rest-api'
 servers:
-  - url: 'http://localhost:8080/api/ledger/v1.0'
+  - url: 'http://rippled-rest-api.herokuapp.com/api/v1'
 tags:
   - name: Account
   - name: Ledger
