@@ -17,7 +17,7 @@ import (
 
 var decoder = schema.NewDecoder()
 
-const BaseURLPath = "/api/ledger/v1.0/"
+const BaseURLPath = "/api/v1/"
 
 func (svc *RippleApiService) HandleApiInfoFastHTTP(ctx *fasthttp.RequestCtx) {
 	svc.HandleApiInfoAnyEngine(anyhttp.NewResReqFastHttp(ctx))
@@ -29,7 +29,7 @@ func (svc *RippleApiService) HandleApiInfoNetHTTP(res http.ResponseWriter, req *
 
 func (svc *RippleApiService) HandleApiInfoAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
 	var apiInfo = openapi3.Info{
-		Title:   "WeCoins Ripple API Proxy",
+		Title:   "GoXRP Rippled REST API Proxy",
 		Version: "1.0.0",
 	}
 	bytes, _ := json.Marshal(apiInfo)
