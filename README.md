@@ -9,6 +9,8 @@
 
 Rippled REST API provides a REST-like API proxy for the [`rippled` server](https://github.com/ripple/rippled). It is more REST-like than the existing interfaces and should be easier to use for those with REST API experience, while remaining close enough to the [`rippled` server's API](https://xrpl.org/rippled-api.html) to ensure maintenance, support and documenation should be eaiser than if a larger change was introduced.
 
+Increasting REST-likeness will be introduced in several phases and different versions of the Rippled REST API will have design guidelines for that version.
+
 It can run as any of the following:
 
 1. Server using `net/http` or `fasthttp`
