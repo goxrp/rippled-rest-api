@@ -62,8 +62,8 @@ Test with:
 
 The API Spec is a work in progress and available at:
 
-* [`spec_wecoins-ripple_openapi3.json`](spec_wecoins-ripple_openapi3.json)
-* [`spec_wecoins-ripple_postman2.json`](spec_wecoins-ripple_postman2.json)
+* [`spec_rippled-rest_openapi3.yaml`](spec_rippled-rest_openapi3.yaml)
+* [`spec_rippled-rest_postman2.json`](spec_rippled-rest_postman2.json)
 
 ## Example Request
 
