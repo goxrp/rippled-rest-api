@@ -11,7 +11,7 @@ require (
 	github.com/gorilla/schema v1.2.0
 	github.com/goxrp/go-rippled v0.8.0
 	github.com/goxrp/ripple-network v0.0.3
-	github.com/grokify/simplego v0.26.3
+	github.com/grokify/simplego v0.26.4
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/rs/zerolog v1.21.0
 	github.com/valyala/fasthttp v1.24.0

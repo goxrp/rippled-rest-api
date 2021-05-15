@@ -40,6 +40,17 @@ func (svc *RippleApiService) HandleApiFastHTTP(ctx *fasthttp.RequestCtx) {
 
 func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
 	httpMethod := strings.ToUpper(strings.TrimSpace(string(aReq.Method())))
+
+	acHeaders := strings.TrimSpace(aReq.HeaderString(httputilmore.HeaderAccessControlRequestHeaders))
+	if len(acHeaders) > 0 {
+		aRes.SetHeader(httputilmore.HeaderAccessControlAllowHeaders, acHeaders)
+	}
+	aRes.SetHeader(httputilmore.HeaderAccessControlAllowMethods, http.MethodPost)
+	aRes.SetHeader(httputilmore.HeaderAccessControlAllowOrigin, "*")
+	if httpMethod == http.MethodOptions {
+		return
+	}
+
 	xrplMethod := strings.ToLower(strings.TrimSpace(aReq.RequestURIVar("rippled_method")))
 
 	log.Info().
