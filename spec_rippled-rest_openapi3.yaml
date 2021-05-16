@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Ripple REST API
   version: '1.0'
-  description: A REST API for the `rippled` server using the Grokify Ripple API Proxy.
+  description: A REST-like API for the `rippled` server.
   contact:
     name: Ripple REST API
     url: 'http://github.com/grokify/ripple-rest-api'
@@ -15,7 +15,7 @@ tags:
 paths:
   /account_channels:
     post:
-      summary: Get Account Channels
+      summary: Get a list of payment channels where the account is the source of the channel.
       operationId: account_channels
       tags:
         - Account
@@ -42,7 +42,7 @@ paths:
     post:
       tags:
         - Account
-      summary: Get Account Currencies
+      summary: Get a list of currencies an account can send or receive.
       operationId: account_currencies
       responses:
         '200':
@@ -92,7 +92,7 @@ paths:
                   strict: true
   /account_info:
     post:
-      summary: Get Account Info
+      summary: Get basic data about an account.
       operationId: account_info
       tags:
         - Account
@@ -155,7 +155,7 @@ paths:
       description: 'The `account_info` command retrieves information about an account, its activity, and its XRP balance. All information retrieved is relative to a particular version of the ledger.'
   /account_lines:
     post:
-      summary: Get Account Lines
+      summary: Get info about an account's trust lines.
       operationId: account_lines
       tags:
         - Account
@@ -178,7 +178,7 @@ paths:
                   account: r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59
   /account_offers:
     post:
-      summary: Get Account Offers
+      summary: Get info about an account's currency exchange offers.
       operationId: account_offers
       tags:
         - Account
@@ -261,7 +261,7 @@ paths:
     parameters: []
   /ledger:
     post:
-      summary: Get Ledger Info
+      summary: Get info about a ledger version.
       operationId: ledger
       tags:
         - Ledger
@@ -280,7 +280,7 @@ paths:
               $ref: '#/components/schemas/LedgerRequestParams'
   /ledger_closed:
     post:
-      summary: ''
+      summary: Get the latest closed ledger version.
       operationId: ledger_closed
       tags:
         - Ledger
@@ -294,7 +294,7 @@ paths:
       description: The ledger_closed method returns the unique identifiers of the most recently closed ledger. (This ledger is not necessarily validated and immutable yet.)
   /ledger_current:
     post:
-      summary: ''
+      summary: Get the current working ledger version.
       operationId: ledger_current
       tags:
         - Ledger
@@ -304,7 +304,7 @@ paths:
       description: 'The `ledger_current` method returns the unique identifiers of the current in-progress ledger. This command is mostly useful for testing, because the ledger returned is still in flux.'
   /ledger_data:
     post:
-      summary: ''
+      summary: Get the raw contents of a ledger version.
       operationId: ledger_data
       tags:
         - Ledger
@@ -321,6 +321,16 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/LedgerDataRequestParams'
+  /account_tx:
+    post:
+      tags:
+      - Account 
+      description: The `account_tx` method retrieves a list of transactions that involved the specified account.
+      summary: Get info about an account's transactions.
+      operationId: account_tx
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     AccountChannelsRequestParams:
@@ -1384,3 +1394,142 @@ components:
             - data: 110072220002000025000B65783700000000000000003800000000000000005587591A63051645F37B85D1FBA55EE69B1C96BFF16904F5C99F03FB93D42D03756280000000000000000000000000000000000000004254430000000000000000000000000000000000000000000000000166800000000000000000000000000000000000000042544300000000000A20B3C85F482532A9578DBB3950B85CA06594D167D4C38D7EA4C680000000000000000000000000004254430000000000C795FDF8A637BCAAEDAD1C434033506236C82A2D
               index: 000103996A3BAD918657F86E12A67D693E8FC8A814DA4B958A244B5F14D93E58
           status: success
+    AccountTxRequestParams:
+      description: |-
+        You must use at least one of the following fields in your request: `ledger_index`, `ledger_hash`, `ledger_index_min`, or `ledger_index_max`.
+
+        The following legacy fields are no longer supported: `offset`, `count`, `ledger_min`, `ledger_max`.
+      type: object
+      x-examples:
+        example-1:
+          account: rLNaPoKeeBjZe2qs6x52yVPZpZ8td4dc6w
+          binary: false
+          forward: false
+          ledger_index_max: -1
+          ledger_index_min: -1
+          limit: 2
+      properties:
+        account:
+          type: string
+          minLength: 1
+          description: 'A unique identifier for the account, most commonly the account''s address.'
+        binary:
+          type: boolean
+          description: '(Optional) Defaults to `false`. If set to `true`, returns transactions as hex strings instead of JSON.'
+        forward:
+          type: boolean
+          description: '(Optional) Defaults to `false`. If set to `true`, returns values indexed with the oldest ledger first. Otherwise, the results are indexed with the newest ledger first. (Each page of results may not be internally ordered, but the pages are overall ordered.)'
+          default: false
+        ledger_index_max:
+          type: number
+          description: (Optional) Use to specify the most recent ledger to include transactions from. A value of -1 instructs the server to use the most recent validated ledger version available.
+        ledger_index_min:
+          type: number
+          description: (Optional) Use to specify the earliest ledger to include transactions from. A value of -1 instructs the server to use the earliest validated ledger version available.
+        limit:
+          type: integer
+          description: (Optional) Default varies. Limit the number of transactions to retrieve. The server is not required to honor this value.
+        ledger_hash:
+          type: string
+          description: '(Optional) Use to look for transactions from a single ledger only. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers).)'
+        leder_index:
+          type: string
+          description: '(Optional) Use to look for transactions from a single ledger only. (See [Specifying Ledgers](https://xrpl.org/basic-data-types.html#specifying-ledgers).)'
+        marker:
+          type: string
+          description: Value from a previous paginated response. Resume retrieving data where that response left off. This value is stable even if there is a change in the server's range of available ledgers.
+      required:
+        - account
+    AccountTxResult:
+      title: AccountTxResult
+      type: object
+      description: ''
+      properties:
+        account:
+          type: string
+          description: 'Unique [Address](https://xrpl.org/basic-data-types.html#addresses) identifying the related account'
+        ledger_index_min:
+          description: 'The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the earliest ledger actually searched for transactions.'
+          type: integer
+        ledger_index_max:
+          description: 'The [ledger index](https://xrpl.org/basic-data-types.html#ledger-index) of the most recent ledger actually searched for transactions.'
+          type: integer
+        limit:
+          type: integer
+          description: The `limit` value used in the request. (This may differ from the actual limit value enforced by the server.)
+        marker:
+          type: string
+          description: Server-defined value indicating the response is paginated. Pass this to the next call to resume where this call left off.
+        validated:
+          type: boolean
+          description: 'If included and set to `true`, the information in this response comes from a validated ledger version. Otherwise, the information is subject to change.'
+    Transaction:
+      title: Transaction
+      type: object
+      description: '  '
+      properties:
+        ledger_index:
+          type: integer
+        meta:
+          $ref: '#/components/schemas/TransactionMeta'
+        tx:
+          type: integer
+        tx_blob:
+          type: string
+          description: The `limit` value used in the request. (This may differ from the actual limit value enforced by the server.)
+        marker:
+          type: string
+          description: Server-defined value indicating the response is paginated. Pass this to the next call to resume where this call left off.
+        validated:
+          type: boolean
+          description: Whether or not the transaction is included in a validated ledger. Any transaction not yet in a validated ledger is subject to change.
+    TransactionMeta:
+      title: TransactionMeta
+      type: object
+      properties:
+        AffectedNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionMetaAffectedNode'
+        TransactionIndex:
+          type: integer
+        TransactionResult:
+          type: string
+        delivered_amount:
+          type: string
+    TransactionMetaAffectedNode:
+      title: TransactionMetaAffectedNode
+      type: object
+      properties:
+        ModifiedNode:
+          $ref: '#/components/schemas/TransactionMetaModifiedNode'
+    TransactionMetaModifiedNode:
+      title: TransactionMetaModifiedNode
+      type: object
+      properties:
+        FinalFields:
+          $ref: '#/components/schemas/TransactionMetaNodeFields'
+        LedgerEntryType:
+          type: string
+        LedgerIndex:
+          type: string
+        PreviousFields:
+          $ref: '#/components/schemas/TransactionMetaNodeFields'
+        PreviousTxnID:
+          type: string
+        PreviousTxnLgrSeq:
+          type: integer
+    TransactionMetaNodeFields:
+      title: TransactionMetaNodeFields
+      type: object
+      properties:
+        Account:
+          type: string
+        Balance:
+          type: string
+        Flags:
+          type: integer
+        OwnerCount:
+          type: integer
+        Sequence:
+          type: integer
