@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Ripple REST API
+  title: Rippled REST API
   version: '1.0'
-  description: A REST-like API for the `rippled` server.
+  description: 'A REST-like API for the `rippled` server. Note: the Heroku-based test server at https://rippled-rest-api.herokuapp.com may be a bit slow as it is running on the Heroku free tier. Deploy your own instance of the REST API server for higher performance.'
   contact:
     name: Ripple REST API
     url: 'http://github.com/grokify/ripple-rest-api'
