@@ -13,7 +13,7 @@ A primary design goal of Rippled REST API is to support the [OpenAPI Specificati
 
 > Note: if you just want to use Postman, see the [`rippled-postman`](https://github.com/goxrp/rippled-postman) Postman Collection which can connect to rippled servers directly.
 
-Providing a a REST-like interface to Rippled requires thoughtful API design. Increasing REST-likeness will be introduced in several phases with different API versions of the Rippled REST API having specific design guidelines for that version.
+Providing a REST-like interface to Rippled requires thoughtful API design. Increasing REST-likeness will be introduced in several phases with different API versions of the Rippled REST API having specific design guidelines for that version.
 
 It can run as any of the following:
 
@@ -77,7 +77,7 @@ The API Spec is a work in progress and available at:
 ### API Request: HTTP API
 
 ```
-POST /api/account_info
+POST /api/v1/account_info
 
 {
   "account": "rG1QQv2nh2gr7RCZ1P8YYcBUKCCN633jCn",
