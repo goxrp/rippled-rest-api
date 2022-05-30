@@ -20,7 +20,7 @@ func main() {
 		Engine:            stringsutil.TrimSpaceOrDefault(os.Getenv("HTTP_ENGINE"), "nethttp"),
 		DefaultJsonRpcUrl: os.Getenv(RippledJsonRpcUrlEnv),
 		BaseURLPath:       controllers.BaseURLPath}
-	fmtutil.PrintJSON(svc)
+	fmtutil.MustPrintJSON(svc)
 	fmt.Printf("TRY it out: %s\n", getCmd())
 
 	httpsimple.Serve(svc)

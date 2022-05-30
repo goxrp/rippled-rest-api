@@ -60,15 +60,15 @@ func (svc RippleAPIService) Router() http.Handler {
 	mux.HandleFunc("/test/", http.HandlerFunc(httpsimple.HandleTestNetHTTP))
 	mux.HandleFunc("/api", http.HandlerFunc(svc.HandleApiInfoNetHTTP))
 	mux.HandleFunc("/api/", http.HandlerFunc(svc.HandleApiInfoNetHTTP))
-	mux.HandleFunc(BaseURLPath+"{rippled_method}", http.HandlerFunc(svc.HandleApiNetHTTP))
-	mux.HandleFunc(BaseURLPath+"{rippled_method}/", http.HandlerFunc(svc.HandleApiNetHTTP))
+	mux.HandleFunc(BaseURLPath+"{rippled_method}", http.HandlerFunc(svc.HandleAPINetHTTP))
+	mux.HandleFunc(BaseURLPath+"{rippled_method}/", http.HandlerFunc(svc.HandleAPINetHTTP))
 	return mux
 }
 
 func (svc RippleAPIService) RouterFast() *fasthttprouter.Router {
 	router := fasthttprouter.New()
-	router.POST(BaseURLPath+":rippled_method", svc.HandleApiFastHTTP)
-	router.POST(BaseURLPath+":rippled_method/", svc.HandleApiFastHTTP)
+	router.POST(BaseURLPath+":rippled_method", svc.HandleAPIFastHTTP)
+	router.POST(BaseURLPath+":rippled_method/", svc.HandleAPIFastHTTP)
 	return router
 }
 

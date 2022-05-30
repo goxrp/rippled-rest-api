@@ -28,17 +28,17 @@ type RequestJSONRPC struct {
 	Method string `json:"method"`
 }
 
-func (svc *RippleAPIService) HandleApiNetHTTP(res http.ResponseWriter, req *http.Request) {
+func (svc *RippleAPIService) HandleAPINetHTTP(res http.ResponseWriter, req *http.Request) {
 	log.Info().Msg("FUNC_HandleNetHTTP__BEGIN")
-	svc.HandleApiAnyEngine(anyhttp.NewResReqNetHTTP(res, req))
+	svc.HandleAPIAnyEngine(anyhttp.NewResReqNetHTTP(res, req))
 }
 
-func (svc *RippleAPIService) HandleApiFastHTTP(ctx *fasthttp.RequestCtx) {
+func (svc *RippleAPIService) HandleAPIFastHTTP(ctx *fasthttp.RequestCtx) {
 	log.Info().Msg("HANDLE_FastHTTP")
-	svc.HandleApiAnyEngine(anyhttp.NewResReqFastHTTP(ctx))
+	svc.HandleAPIAnyEngine(anyhttp.NewResReqFastHTTP(ctx))
 }
 
-func (svc *RippleAPIService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
+func (svc *RippleAPIService) HandleAPIAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
 	httpMethod := strings.ToUpper(strings.TrimSpace(string(aReq.Method())))
 
 	acHeaders := strings.TrimSpace(aReq.HeaderString(httputilmore.HeaderAccessControlRequestHeaders))
