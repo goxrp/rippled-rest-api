@@ -8,9 +8,9 @@ import (
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
-	"github.com/grokify/simplego/net/anyhttp"
-	"github.com/grokify/simplego/net/http/httpsimple"
-	"github.com/grokify/simplego/net/httputilmore"
+	"github.com/grokify/gohttp/anyhttp"
+	"github.com/grokify/gohttp/httpsimple"
+	"github.com/grokify/mogo/net/httputilmore"
 	"github.com/valyala/fasthttp"
 	"github.com/valyala/fastjson"
 )

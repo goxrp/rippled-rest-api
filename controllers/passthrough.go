@@ -6,10 +6,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/grokify/simplego/encoding/jsonutil"
-	"github.com/grokify/simplego/net/anyhttp"
-	"github.com/grokify/simplego/net/httputilmore"
-	"github.com/grokify/simplego/type/stringsutil"
+	"github.com/grokify/gohttp/anyhttp"
+	"github.com/grokify/mogo/encoding/jsonutil"
+	"github.com/grokify/mogo/net/httputilmore"
+	"github.com/grokify/mogo/type/stringsutil"
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
 

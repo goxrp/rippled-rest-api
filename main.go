@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/grokify/simplego/fmt/fmtutil"
-	"github.com/grokify/simplego/net/http/httpsimple"
-	"github.com/grokify/simplego/strconv/strconvutil"
-	"github.com/grokify/simplego/type/stringsutil"
+	"github.com/grokify/gohttp/httpsimple"
+	"github.com/grokify/mogo/fmt/fmtutil"
+	"github.com/grokify/mogo/strconv/strconvutil"
+	"github.com/grokify/mogo/type/stringsutil"
 
 	"github.com/goxrp/rippled-rest-api/controllers"
 )
