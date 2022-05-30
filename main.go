@@ -12,13 +12,13 @@ import (
 	"github.com/goxrp/rippled-rest-api/controllers"
 )
 
-const RippledJsonRpcUrlEnv = "RIPPLED_JSONRPC_URL"
+const RippledJSONRPCURLEnv = "RIPPLED_JSONRPC_URL"
 
 func main() {
 	svc := controllers.RippleAPIService{
 		Port:              strconvutil.AtoiOrDefault(os.Getenv("PORT"), 8080),
 		Engine:            stringsutil.TrimSpaceOrDefault(os.Getenv("HTTP_ENGINE"), "nethttp"),
-		DefaultJsonRpcUrl: os.Getenv(RippledJsonRpcUrlEnv),
+		DefaultJsonRpcUrl: os.Getenv(RippledJSONRPCURLEnv),
 		BaseURLPath:       controllers.BaseURLPath}
 	fmtutil.MustPrintJSON(svc)
 	fmt.Printf("TRY it out: %s\n", getCmd())

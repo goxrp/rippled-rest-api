@@ -19,15 +19,15 @@ var decoder = schema.NewDecoder()
 
 const BaseURLPath = "/api/v1/"
 
-func (svc *RippleAPIService) HandleApiInfoFastHTTP(ctx *fasthttp.RequestCtx) {
-	svc.HandleApiInfoAnyEngine(anyhttp.NewResReqFastHTTP(ctx))
+func (svc *RippleAPIService) HandleAPIInfoFastHTTP(ctx *fasthttp.RequestCtx) {
+	svc.HandleAPIInfoAnyEngine(anyhttp.NewResReqFastHTTP(ctx))
 }
 
-func (svc *RippleAPIService) HandleApiInfoNetHTTP(res http.ResponseWriter, req *http.Request) {
-	svc.HandleApiInfoAnyEngine(anyhttp.NewResReqNetHTTP(res, req))
+func (svc *RippleAPIService) HandleAPIInfoNetHTTP(res http.ResponseWriter, req *http.Request) {
+	svc.HandleAPIInfoAnyEngine(anyhttp.NewResReqNetHTTP(res, req))
 }
 
-func (svc *RippleAPIService) HandleApiInfoAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
+func (svc *RippleAPIService) HandleAPIInfoAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
 	var apiInfo = openapi3.Info{
 		Title:   "GoXRP Rippled REST API Proxy",
 		Version: "1.0.0",
@@ -58,8 +58,8 @@ func (svc RippleAPIService) Router() http.Handler {
 	mux := mux.NewRouter()
 	mux.HandleFunc("/test", http.HandlerFunc(httpsimple.HandleTestNetHTTP))
 	mux.HandleFunc("/test/", http.HandlerFunc(httpsimple.HandleTestNetHTTP))
-	mux.HandleFunc("/api", http.HandlerFunc(svc.HandleApiInfoNetHTTP))
-	mux.HandleFunc("/api/", http.HandlerFunc(svc.HandleApiInfoNetHTTP))
+	mux.HandleFunc("/api", http.HandlerFunc(svc.HandleAPIInfoNetHTTP))
+	mux.HandleFunc("/api/", http.HandlerFunc(svc.HandleAPIInfoNetHTTP))
 	mux.HandleFunc(BaseURLPath+"{rippled_method}", http.HandlerFunc(svc.HandleAPINetHTTP))
 	mux.HandleFunc(BaseURLPath+"{rippled_method}/", http.HandlerFunc(svc.HandleAPINetHTTP))
 	return mux
