@@ -24,21 +24,21 @@ const (
 	MethodLedgerData    = "ledger_data"
 )
 
-type RequestJsonRpc struct {
+type RequestJSONRPC struct {
 	Method string `json:"method"`
 }
 
-func (svc *RippleApiService) HandleApiNetHTTP(res http.ResponseWriter, req *http.Request) {
+func (svc *RippleAPIService) HandleApiNetHTTP(res http.ResponseWriter, req *http.Request) {
 	log.Info().Msg("FUNC_HandleNetHTTP__BEGIN")
-	svc.HandleApiAnyEngine(anyhttp.NewResReqNetHttp(res, req))
+	svc.HandleApiAnyEngine(anyhttp.NewResReqNetHTTP(res, req))
 }
 
-func (svc *RippleApiService) HandleApiFastHTTP(ctx *fasthttp.RequestCtx) {
+func (svc *RippleAPIService) HandleApiFastHTTP(ctx *fasthttp.RequestCtx) {
 	log.Info().Msg("HANDLE_FastHTTP")
-	svc.HandleApiAnyEngine(anyhttp.NewResReqFastHttp(ctx))
+	svc.HandleApiAnyEngine(anyhttp.NewResReqFastHTTP(ctx))
 }
 
-func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
+func (svc *RippleAPIService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
 	httpMethod := strings.ToUpper(strings.TrimSpace(string(aReq.Method())))
 
 	acHeaders := strings.TrimSpace(aReq.HeaderString(httputilmore.HeaderAccessControlRequestHeaders))
@@ -70,7 +70,7 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 			jrpcURL = strings.TrimSpace(os.Getenv("JSON_RPC_URL"))
 		}
 		if len(jrpcURL) == 0 {
-			jrpcURL = ripplenetwork.GetMainnetPublicJsonRpcUrl()
+			jrpcURL = ripplenetwork.GetMainnetPublicJSONRPCURL()
 		}
 		log.Info().Str("jsonRpcRemoteURL", jrpcURL)
 
@@ -80,21 +80,21 @@ func (svc *RippleApiService) HandleApiAnyEngine(aRes anyhttp.Response, aReq anyh
 			respBodyBytes, err := ioutil.ReadAll(resp.Body)
 			if err == nil {
 				aRes.SetHeader(httputilmore.HeaderAccessControlAllowOrigin, "*")
-				aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
+				aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
 				aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
 			}
 		}
 	}
 }
 
-func (svc *RippleApiService) HandleGetNoParamsAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
+func (svc *RippleAPIService) HandleGetNoParamsAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
 	log.Info().Msg("FUNC_HandleLedgerCurrentAnyEngine__BEGIN")
 
 	proxyResp, err := gorippled.DoApiJsonRpcSplit(
 		stringsutil.FirstNotEmptyTrimSpace(
 			aReq.QueryArgs().GetString("jrpcURL"),
 			os.Getenv("JSON_RPC_URL"),
-			ripplenetwork.GetMainnetPublicJsonRpcUrl()),
+			ripplenetwork.GetMainnetPublicJSONRPCURL()),
 		strings.ToLower(strings.TrimSpace(aReq.RequestURIVar("rippled_method"))),
 		[]byte{})
 
@@ -102,7 +102,7 @@ func (svc *RippleApiService) HandleGetNoParamsAnyEngine(aRes anyhttp.Response, a
 		respBodyBytes, err := ioutil.ReadAll(proxyResp.Body)
 		if err == nil {
 			// Content-Type: text/plain; charset=utf-8
-			aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
+			aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
 			aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
 		}
 	}

@@ -15,7 +15,7 @@ import (
 const RippledJsonRpcUrlEnv = "RIPPLED_JSONRPC_URL"
 
 func main() {
-	svc := controllers.RippleApiService{
+	svc := controllers.RippleAPIService{
 		Port:              strconvutil.AtoiOrDefault(os.Getenv("PORT"), 8080),
 		Engine:            stringsutil.TrimSpaceOrDefault(os.Getenv("HTTP_ENGINE"), "nethttp"),
 		DefaultJsonRpcUrl: os.Getenv(RippledJsonRpcUrlEnv),
