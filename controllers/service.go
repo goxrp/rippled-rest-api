@@ -7,7 +7,6 @@ import (
 	"github.com/buaazp/fasthttprouter"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/gorilla/mux"
-	"github.com/gorilla/schema"
 	"github.com/grokify/gohttp/anyhttp"
 	"github.com/grokify/gohttp/httpsimple"
 	"github.com/grokify/mogo/net/httputilmore"
@@ -15,7 +14,8 @@ import (
 	"github.com/valyala/fastjson"
 )
 
-var decoder = schema.NewDecoder()
+// "github.com/gorilla/schema"
+// var decoder = schema.NewDecoder()
 
 const BaseURLPath = "/api/v1/"
 
