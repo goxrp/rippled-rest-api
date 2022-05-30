@@ -42,7 +42,7 @@ func (svc *RippleAPIService) HandleAPIInfoAnyEngine(aRes anyhttp.Response, aReq 
 type RippleAPIService struct {
 	Port              int
 	Engine            string
-	DefaultJsonRpcUrl string
+	DefaultJSONRPCURL string
 	BaseURLPath       string
 }
 
