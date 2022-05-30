@@ -81,7 +81,10 @@ func (svc *RippleAPIService) HandleAPIAnyEngine(aRes anyhttp.Response, aReq anyh
 			if err == nil {
 				aRes.SetHeader(httputilmore.HeaderAccessControlAllowOrigin, "*")
 				aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
-				aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
+				_, err := aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
+				if err != nil {
+					log.Error().Err(err).Msg("HandleAPIAnyEngine..setBodyFailure")
+				}
 			}
 		}
 	}
@@ -103,7 +106,10 @@ func (svc *RippleAPIService) HandleGetNoParamsAnyEngine(aRes anyhttp.Response, a
 		if err == nil {
 			// Content-Type: text/plain; charset=utf-8
 			aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
-			aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
+			_, err := aRes.SetBodyBytes(jsonutil.MustGetSubobjectBytes(respBodyBytes, "result"))
+			if err != nil {
+				log.Error().Err(err).Msg("HandleGetNoParamsAnyEngine..setBodyFailure")
+			}
 		}
 	}
 }

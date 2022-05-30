@@ -10,6 +10,7 @@ import (
 	"github.com/grokify/gohttp/anyhttp"
 	"github.com/grokify/gohttp/httpsimple"
 	"github.com/grokify/mogo/net/httputilmore"
+	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
 	"github.com/valyala/fastjson"
 )
@@ -36,7 +37,10 @@ func (svc *RippleAPIService) HandleAPIInfoAnyEngine(aRes anyhttp.Response, aReq 
 	// aRes.SetStatusCode(http.StatusOK)
 	// aRes.SetStatusCode(400)
 	aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
-	aRes.SetBodyBytes(bytes)
+	_, err := aRes.SetBodyBytes(bytes)
+	if err != nil {
+		log.Error().Err(err).Msg("HandleAPIInfoAnyEngine..SetBodyBytes")
+	}
 }
 
 type RippleAPIService struct {
