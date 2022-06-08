@@ -11,7 +11,7 @@ require (
 	github.com/goxrp/ripple-network v0.1.2
 	github.com/grokify/gohttp v0.2.1
 	github.com/grokify/mogo v0.39.6
-	github.com/rs/zerolog v1.26.1
+	github.com/rs/zerolog v1.27.0
 	github.com/valyala/fasthttp v1.37.0
 	github.com/valyala/fastjson v1.6.3
 )
