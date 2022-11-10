@@ -5,7 +5,7 @@ go 1.16
 
 require (
 	github.com/buaazp/fasthttprouter v0.1.1
-	github.com/getkin/kin-openapi v0.106.0
+	github.com/getkin/kin-openapi v0.108.0
 	github.com/gorilla/mux v1.8.0
 	github.com/goxrp/go-rippled v0.8.1
 	github.com/goxrp/ripple-network v0.1.2
