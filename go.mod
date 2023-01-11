@@ -12,6 +12,6 @@ require (
 	github.com/grokify/gohttp v0.2.2
 	github.com/grokify/mogo v0.40.4
 	github.com/rs/zerolog v1.28.0
-	github.com/valyala/fasthttp v1.40.0
+	github.com/valyala/fasthttp v1.44.0
 	github.com/valyala/fastjson v1.6.3
 )
