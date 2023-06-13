@@ -8,7 +8,7 @@ import (
 
 	"github.com/grokify/gohttp/anyhttp"
 	"github.com/grokify/mogo/encoding/jsonutil"
-	"github.com/grokify/mogo/net/httputilmore"
+	"github.com/grokify/mogo/net/http/httputilmore"
 	"github.com/grokify/mogo/type/stringsutil"
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
