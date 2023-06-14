@@ -82,8 +82,8 @@ github.com/grokify/base36 v1.0.5/go.mod h1:L+1aaUBGfp5Ctar7KCS5G9uPABo1Ccu1Ct2iQ
 github.com/grokify/bitcoinmath v0.1.0/go.mod h1:Y8OyDefB55NHGzi+uJshYmE4Hn5juIQqJahsQJN5o2k=
 github.com/grokify/gocharts/v2 v2.7.3/go.mod h1:Z3e+MJxjK04szwBkrilsu73UU7rd0RzGrxpE15PnhUY=
 github.com/grokify/gohttp v0.2.1/go.mod h1:lvWGlBA0PeelznQ5fFlr9GRbNOCsY86q5dmY9FqSlxE=
-github.com/grokify/gohttp v0.2.4 h1:XAMClaxgTKdQ7YuOiqB2f2RTOS6Zy7hqkf65FSy4Z9I=
-github.com/grokify/gohttp v0.2.4/go.mod h1:q2y1z6P6OXEwh44br49ALvGE9s5hLrwGZrQvVjyos2o=
+github.com/grokify/gohttp v0.2.5 h1:8+qoIE6MKYSwj3Y8B7xWVq7ZAPms9SlE6HyKe7+TMug=
+github.com/grokify/gohttp v0.2.5/go.mod h1:1E6MhNkK69ZfEhYeA/imzbAjfYQLutKiPdC+2lha+zs=
 github.com/grokify/mogo v0.39.4/go.mod h1:0YiyOOSD1CRchDlcfVcYntUL0E9i9y/huZSWxgDuJqY=
 github.com/grokify/mogo v0.39.6/go.mod h1:Jsx1wHRAl7SkBK0lBB7N3wUEWHeC/hBTEs4I4rVgmTI=
 github.com/grokify/mogo v0.49.1 h1:YseoSOBnBUthHG/U58uB9m4shg/SASD/AT/yxVjjikw=
@@ -109,8 +109,8 @@ github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+o
 github.com/klauspost/compress v1.13.4/go.mod h1:8dP1Hq4DHOhN9w426knH3Rhby4rFm6D8eO+e+Dq5Gzg=
 github.com/klauspost/compress v1.13.5/go.mod h1:/3/Vjq9QcHkK5uEr5lBEmyoZ1iFhe47etQ6QUkpK6sk=
 github.com/klauspost/compress v1.15.0/go.mod h1:/3/Vjq9QcHkK5uEr5lBEmyoZ1iFhe47etQ6QUkpK6sk=
-github.com/klauspost/compress v1.16.5 h1:IFV2oUNUzZaz+XyusxpLzpzS8Pt5rh0Z16For/djlyI=
-github.com/klauspost/compress v1.16.5/go.mod h1:ntbaceVETuRiXiv4DpjP66DpAtAGkEQskQzEyD//IeE=
+github.com/klauspost/compress v1.16.6 h1:91SKEy4K37vkp255cJ8QesJhjyRO0hn9i9G0GoUwLsk=
+github.com/klauspost/compress v1.16.6/go.mod h1:ntbaceVETuRiXiv4DpjP66DpAtAGkEQskQzEyD//IeE=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pretty v0.2.1 h1:Fmg33tUaq4/8ym9TJN1x7sLJnHVwhP33CNkpYV/7rwI=
 github.com/kr/pretty v0.2.1/go.mod h1:ipq/a2n7PKx3OHsz4KJII5eveXtPO4qwEXGdVfWzfnI=
