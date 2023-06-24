@@ -10,7 +10,7 @@ require (
 	github.com/goxrp/go-rippled v0.8.1
 	github.com/goxrp/ripple-network v0.1.2
 	github.com/grokify/gohttp v0.2.5
-	github.com/grokify/mogo v0.49.1
+	github.com/grokify/mogo v0.50.0
 	github.com/rs/zerolog v1.29.1
 	github.com/valyala/fasthttp v1.47.0
 	github.com/valyala/fastjson v1.6.4
