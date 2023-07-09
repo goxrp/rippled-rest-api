@@ -8,7 +8,7 @@ require (
 	github.com/getkin/kin-openapi v0.118.0
 	github.com/gorilla/mux v1.8.0
 	github.com/goxrp/go-rippled v0.8.1
-	github.com/goxrp/ripple-network v0.1.2
+	github.com/goxrp/ripple-network v0.1.3
 	github.com/grokify/gohttp v0.2.5
 	github.com/grokify/mogo v0.50.0
 	github.com/rs/zerolog v1.29.1
