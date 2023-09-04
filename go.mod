@@ -9,7 +9,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/goxrp/go-rippled v0.8.1
 	github.com/goxrp/ripple-network v0.1.2
-	github.com/grokify/gohttp v0.2.5
+	github.com/grokify/gohttp v0.2.6
 	github.com/grokify/mogo v0.55.0
 	github.com/rs/zerolog v1.29.1
 	github.com/valyala/fasthttp v1.48.0
@@ -29,7 +29,7 @@ require (
 	github.com/invopop/yaml v0.2.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.16.6 // indirect
+	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
