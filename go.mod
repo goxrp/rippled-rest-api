@@ -12,7 +12,7 @@ require (
 	github.com/grokify/gohttp v0.2.6
 	github.com/grokify/mogo v0.60.0
 	github.com/rs/zerolog v1.29.1
-	github.com/valyala/fasthttp v1.48.0
+	github.com/valyala/fasthttp v1.50.0
 	github.com/valyala/fastjson v1.6.4
 )
 
