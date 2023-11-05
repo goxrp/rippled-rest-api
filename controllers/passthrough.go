@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -77,7 +77,7 @@ func (svc *RippleAPIService) HandleAPIAnyEngine(aRes anyhttp.Response, aReq anyh
 		resp, err := gorippled.DoApiJsonRpcSplit(jrpcURL, xrplMethod, bodyBytes)
 
 		if err == nil {
-			respBodyBytes, err := ioutil.ReadAll(resp.Body)
+			respBodyBytes, err := io.ReadAll(resp.Body)
 			if err == nil {
 				aRes.SetHeader(httputilmore.HeaderAccessControlAllowOrigin, "*")
 				aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
@@ -102,7 +102,7 @@ func (svc *RippleAPIService) HandleGetNoParamsAnyEngine(aRes anyhttp.Response, a
 		[]byte{})
 
 	if err == nil {
-		respBodyBytes, err := ioutil.ReadAll(proxyResp.Body)
+		respBodyBytes, err := io.ReadAll(proxyResp.Body)
 		if err == nil {
 			// Content-Type: text/plain; charset=utf-8
 			aRes.SetHeader(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
