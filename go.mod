@@ -12,7 +12,8 @@ require (
 	github.com/goxrp/go-rippled v0.8.2
 	github.com/goxrp/ripple-network v0.1.5
 	github.com/grokify/gohttp v0.2.7
-	github.com/grokify/mogo v0.60.1
+	github.com/grokify/mogo v0.61.0
+	github.com/grokify/xgo v0.6.0
 	github.com/rs/zerolog v1.31.0
 	github.com/valyala/fasthttp v1.51.0
 	github.com/valyala/fastjson v1.6.4
@@ -44,6 +45,5 @@ require (
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
 	golang.org/x/sys v0.14.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
-	gopkg.in/oleiade/reflections.v1 v1.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

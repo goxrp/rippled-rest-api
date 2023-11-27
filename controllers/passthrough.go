@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/grokify/gohttp/anyhttp"
-	"github.com/grokify/mogo/encoding/jsonutil"
 	"github.com/grokify/mogo/net/http/httputilmore"
 	"github.com/grokify/mogo/type/stringsutil"
+	"github.com/grokify/xgo/encoding/jsonutil"
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
 
