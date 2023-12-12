@@ -12,8 +12,8 @@ require (
 	github.com/goxrp/go-rippled v0.8.2
 	github.com/goxrp/ripple-network v0.1.5
 	github.com/grokify/gohttp v0.2.7
-	github.com/grokify/mogo v0.62.2
-	github.com/grokify/xgo v0.7.0
+	github.com/grokify/mogo v0.62.3
+	github.com/grokify/xgo v0.7.1
 	github.com/rs/zerolog v1.31.0
 	github.com/valyala/fasthttp v1.51.0
 	github.com/valyala/fastjson v1.6.4
@@ -31,7 +31,7 @@ require (
 	github.com/invopop/yaml v0.2.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.17.3 // indirect
+	github.com/klauspost/compress v1.17.4 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
