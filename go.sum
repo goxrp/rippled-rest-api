@@ -4,8 +4,8 @@ github.com/andybalholm/brotli v1.0.6/go.mod h1:fO7iG3H7G2nSZ7m0zPUDn85XEX2GTukHG
 github.com/apex/gateway v1.1.2 h1:OWyLov8eaau8YhkYKkRuOAYqiUhpBJalBR1o+3FzX+8=
 github.com/apex/gateway v1.1.2/go.mod h1:AMTkVbz5u5Hvd6QOGhhg0JUrNgCcLVu3XNJOGntdoB4=
 github.com/aws/aws-lambda-go v1.17.0/go.mod h1:FEwgPLE6+8wcGBTe5cJN3JWurd1Ztm9zN4jsXsjzKKw=
-github.com/aws/aws-lambda-go v1.41.0 h1:l/5fyVb6Ud9uYd411xdHZzSf2n86TakxzpvIoz7l+3Y=
-github.com/aws/aws-lambda-go v1.41.0/go.mod h1:jwFe2KmMsHmffA1X2R09hH6lFzJQxzI8qK17ewzbQMM=
+github.com/aws/aws-lambda-go v1.43.0 h1:Tdu7SnMB5bD+CbdnSq1Dg4sM68vEuGIDcQFZ+IjUfx0=
+github.com/aws/aws-lambda-go v1.43.0/go.mod h1:dpMpZgvWx5vuQJfBt0zqBha60q7Dd7RfgJv23DymV8A=
 github.com/buaazp/fasthttprouter v0.1.1 h1:4oAnN0C3xZjylvZJdP35cxfclyn4TYkW6Y+DSvS+h8Q=
 github.com/buaazp/fasthttprouter v0.1.1/go.mod h1:h/Ap5oRVLeItGKTVBb+heQPks+HdIUtGmI4H5WCYijM=
 github.com/buger/jsonparser v1.1.1 h1:2PnMjfWD7wBILjqQbt530v576A/cAbQvEW9gGIpYMUs=
@@ -33,10 +33,10 @@ github.com/goxrp/ripple-network v0.1.5 h1:cZm43sOZvFv6+wFCIglstKjh1gY+c61A95A6+a
 github.com/goxrp/ripple-network v0.1.5/go.mod h1:UJF+j2t5AokM/KoyrgmcfLSaDbcvaL9y7UIwdXTTfjE=
 github.com/grokify/gohttp v0.2.7 h1:HU8dXhUQCYKHpy69LqiK8jRYxoLtYUGx0/IZ4u5WwVQ=
 github.com/grokify/gohttp v0.2.7/go.mod h1:jcYYSbLkLi+KbGOQfLZbDrhr0yg7uWphybyfJFgZgEA=
-github.com/grokify/mogo v0.62.5 h1:qqkqpA38q3w3kC6ti9NyQbT3uVCODsRL1ymKs6tJjR4=
-github.com/grokify/mogo v0.62.5/go.mod h1:2VrzVxJClb3+AQ5j4vsynGtMyKGe+ioMQQLTNcAx4VM=
-github.com/grokify/xgo v0.7.1 h1:8Axp8WBn7Ng5reerlJXeLYhJtqc29Q3zyxdQvWfP3SQ=
-github.com/grokify/xgo v0.7.1/go.mod h1:RZA504bn2DM4nJVYA34Ntba55tMbW5WXcu5rkCAuj9o=
+github.com/grokify/mogo v0.62.6 h1:90QtIE5vvQ30QbrUcC1trvKHbBM/CqpMpD2y+EiVuFs=
+github.com/grokify/mogo v0.62.6/go.mod h1:gK6Qf761S7iOxI3LrILjoTOJWdQPgs8LxSPdDmuX8Xo=
+github.com/grokify/xgo v0.7.2 h1:URnyPp4tBn3am8gY/jRVMuv5Rx0BlFGp11O+H4t4xWE=
+github.com/grokify/xgo v0.7.2/go.mod h1:8Mz8/MY2cIlMkc78zOF/V0ySYxKuZ0LsxtO+orwnfXg=
 github.com/huandu/xstrings v1.4.0 h1:D17IlohoQq4UcpqD7fDk80P7l+lwAmlFaBHgOipl2FU=
 github.com/huandu/xstrings v1.4.0/go.mod h1:y5/lhBue+AyNmUVz9RLU9xbLR0o4KIIExikq4ovT0aE=
 github.com/iancoleman/strcase v0.3.0 h1:nTXanmYxhfFAMjZL34Ov6gkzEsSJZ5DbhxWjvSASxEI=
@@ -98,8 +98,8 @@ github.com/valyala/fasthttp v1.51.0 h1:8b30A5JlZ6C7AS81RsWjYMQmrZG6feChmgAolCl1S
 github.com/valyala/fasthttp v1.51.0/go.mod h1:oI2XroL+lI7vdXyYoQk03bXBThfFl2cVdIA3Xl7cH8g=
 github.com/valyala/fastjson v1.6.4 h1:uAUNq9Z6ymTgGhcm0UynUAB6tlbakBrz6CQFax3BXVQ=
 github.com/valyala/fastjson v1.6.4/go.mod h1:CLCAqky6SMuOcxStkYQvblddUtoRxhYMGLrsQns1aXY=
-golang.org/x/exp v0.0.0-20231214170342-aacd6d4b4611 h1:qCEDpW1G+vcj3Y7Fy52pEM1AWm3abj8WimGYejI3SC4=
-golang.org/x/exp v0.0.0-20231214170342-aacd6d4b4611/go.mod h1:iRJReGqOEeBhDZGkGbynYwcHlctCvnjTYIamk7uXpHI=
+golang.org/x/exp v0.0.0-20231219180239-dc181d75b848 h1:+iq7lrkxmFNBM7xx+Rae2W6uyPfhPeDWD+n+JgppptE=
+golang.org/x/exp v0.0.0-20231219180239-dc181d75b848/go.mod h1:iRJReGqOEeBhDZGkGbynYwcHlctCvnjTYIamk7uXpHI=
 golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.12.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
