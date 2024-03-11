@@ -2,6 +2,7 @@ module github.com/goxrp/rippled-rest-api
 
 // +heroku goVersion go1.18
 go 1.21
+toolchain go1.22.1
 
 // toolchain go1.21.1
 
@@ -12,7 +13,7 @@ require (
 	github.com/goxrp/go-rippled v0.8.2
 	github.com/goxrp/ripple-network v0.1.5
 	github.com/grokify/gohttp v0.2.7
-	github.com/grokify/mogo v0.62.6
+	github.com/grokify/mogo v0.63.2
 	github.com/grokify/xgo v0.7.2
 	github.com/rs/zerolog v1.31.0
 	github.com/valyala/fasthttp v1.51.0
@@ -41,8 +42,8 @@ require (
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	golang.org/x/exp v0.0.0-20231219180239-dc181d75b848 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225 // indirect
+	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
