@@ -7,7 +7,7 @@ go 1.21
 
 require (
 	github.com/buaazp/fasthttprouter v0.1.1
-	github.com/getkin/kin-openapi v0.124.0
+	github.com/getkin/kin-openapi v0.126.0
 	github.com/gorilla/mux v1.8.1
 	github.com/goxrp/go-rippled v0.8.2
 	github.com/goxrp/ripple-network v0.1.5
@@ -24,11 +24,11 @@ require (
 	github.com/apex/gateway v1.1.2 // indirect
 	github.com/aws/aws-lambda-go v1.43.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
-	github.com/go-openapi/jsonpointer v0.20.2 // indirect
-	github.com/go-openapi/swag v0.22.8 // indirect
+	github.com/go-openapi/jsonpointer v0.21.0 // indirect
+	github.com/go-openapi/swag v0.23.0 // indirect
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/iancoleman/strcase v0.3.0 // indirect
-	github.com/invopop/yaml v0.2.0 // indirect
+	github.com/invopop/yaml v0.3.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.17.4 // indirect
