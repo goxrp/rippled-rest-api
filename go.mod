@@ -12,7 +12,7 @@ require (
 	github.com/goxrp/go-rippled v0.8.3
 	github.com/goxrp/ripple-network v0.1.6
 	github.com/grokify/gohttp v0.2.7
-	github.com/grokify/mogo v0.64.11
+	github.com/grokify/mogo v0.65.1
 	github.com/grokify/sogo v0.8.10
 	github.com/rs/zerolog v1.33.0
 	github.com/valyala/fasthttp v1.56.0
@@ -41,8 +41,8 @@ require (
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e // indirect
-	golang.org/x/sys v0.25.0 // indirect
-	golang.org/x/text v0.18.0 // indirect
+	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c // indirect
+	golang.org/x/sys v0.26.0 // indirect
+	golang.org/x/text v0.19.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
