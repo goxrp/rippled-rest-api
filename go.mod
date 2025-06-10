@@ -12,7 +12,7 @@ require (
 	github.com/goxrp/go-rippled v0.8.3
 	github.com/goxrp/ripple-network v0.1.6
 	github.com/grokify/gohttp v0.2.7
-	github.com/grokify/mogo v0.70.5
+	github.com/grokify/mogo v0.70.6
 	github.com/grokify/sogo v0.11.5
 	github.com/rs/zerolog v1.34.0
 	github.com/valyala/fasthttp v1.62.0
@@ -28,7 +28,6 @@ require (
 	github.com/go-openapi/swag v0.23.1 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/iancoleman/strcase v0.3.0 // indirect
-	github.com/invopop/yaml v0.3.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
