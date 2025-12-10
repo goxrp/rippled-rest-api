@@ -16,7 +16,7 @@ require (
 	github.com/grokify/sogo v0.11.5
 	github.com/rs/zerolog v1.34.0
 	github.com/valyala/fasthttp v1.62.0
-	github.com/valyala/fastjson v1.6.4
+	github.com/valyala/fastjson v1.6.5
 )
 
 require (
@@ -28,7 +28,6 @@ require (
 	github.com/go-openapi/swag v0.23.1 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/iancoleman/strcase v0.3.0 // indirect
-	github.com/invopop/yaml v0.3.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
