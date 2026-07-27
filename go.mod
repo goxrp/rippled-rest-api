@@ -1,9 +1,7 @@
 module github.com/goxrp/rippled-rest-api
 
 // +heroku goVersion go1.22
-go 1.23.2
-
-toolchain go1.24.1
+go 1.25.0
 
 require (
 	github.com/buaazp/fasthttprouter v0.1.1
@@ -15,12 +13,12 @@ require (
 	github.com/grokify/mogo v0.70.5
 	github.com/grokify/sogo v0.11.5
 	github.com/rs/zerolog v1.34.0
-	github.com/valyala/fasthttp v1.62.0
+	github.com/valyala/fasthttp v1.72.0
 	github.com/valyala/fastjson v1.6.5
 )
 
 require (
-	github.com/andybalholm/brotli v1.1.1 // indirect
+	github.com/andybalholm/brotli v1.2.1 // indirect
 	github.com/apex/gateway v1.1.2 // indirect
 	github.com/aws/aws-lambda-go v1.49.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
@@ -30,7 +28,7 @@ require (
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.18.0 // indirect
+	github.com/klauspost/compress v1.18.6 // indirect
 	github.com/mailru/easyjson v0.9.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -43,8 +41,8 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	golang.org/x/exp v0.0.0-20250606033433-dcc06ee1d476 // indirect
-	golang.org/x/net v0.41.0 // indirect
-	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/text v0.26.0 // indirect
+	golang.org/x/net v0.56.0 // indirect
+	golang.org/x/sys v0.46.0 // indirect
+	golang.org/x/text v0.38.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
